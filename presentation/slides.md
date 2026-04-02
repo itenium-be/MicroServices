@@ -1,0 +1,1387 @@
+---
+theme: ./theme
+title: 2024-10-17-MicroServices
+transition: fade
+session-time: 120min
+track: Architecture
+type: Theoretical
+---
+
+# Micro
+# Services
+
+::image::
+
+![](./images/cover-art.jpg)
+
+---
+layout: agenda
+size: sm
+items:
+  - The Monolith
+  - MicroServices
+  - Interprocess Communication
+  - Business Logic
+  - Queries
+  - External APIs
+  - Production Ready
+  - Deployment
+---
+
+<!-- The team grew, the codebase grew, the product grew -->
+
+---
+layout: content-image
+---
+
+# Microservices Patterns
+
+Tis een halve boekbespreking
+
+<v-clicks depth="2">
+
+- With examples in Java
+- 470 pages on everything MicroServices
+- By Chris Richardson: microservices.io
+
+</v-clicks>
+
+Describes a collection of Patterns
+
+::image::
+
+![](./images/book-microservices-patterns.jpg)
+
+<!-- Each service can be X & Z scaled -->
+
+---
+layout: default-image
+---
+
+# Microservices Patterns
+
+Design Patterns... Again?
+
+<v-clicks depth="2">
+
+- FORCES
+  - What we must address
+- RESULTING CONTEXT
+  - Benefits -- what did we gain
+  - Drawbacks -- what did we lose
+  - Issues -- new problems we introduced
+- FOR
+  - Application And Infrastructure
+
+</v-clicks>
+
+::image::
+
+![](./images/patterns-decorative.jpg)
+
+---
+layout: section
+---
+
+# The Monolith
+
+::subtitle::
+
+Monolithic Architecture
+
+---
+layout: default-image
+---
+
+# Monolithic Architecture
+
+<v-clicks depth="2">
+
+- For example n-tier or Hexagonal
+- Why you should build a Monolith
+  - It's easy -- your IDE handles it well
+  - It's easy -- everyone has experience creating one
+  - It's easy -- to write unit & integration tests
+  - It's easy -- to deploy
+  - It's easy -- to scale (typically)
+  - It's easy -- to make big changes
+
+</v-clicks>
+
+Typically a good top level architecture to start with
+
+::image::
+
+![](./images/monolith-clouds.jpg)
+
+<!-- https://en.wikipedia.org/wiki/Conway%27s_law
+https://www.thoughtworks.com/insights/blog/customer-experience/inverse-conway-maneuver-product-development-teams -->
+
+---
+layout: quote-alt
+---
+
+If your application is very successful, the monolith may turn out to be not such a great idea after all
+
+::image::
+
+![](./images/monolith-vs-success.jpg)
+
+<!-- Lead time: from request to deployment -->
+
+---
+layout: content-image
+---
+
+# Monolithic Hell
+
+<v-clicks>
+
+- The codebase intimidates developers
+- Development is slow
+  - Edit-build-run-test loop takes a long time
+- The road to deploy is long and arduous
+- Locked in an increasingly obsolete stack
+
+</v-clicks>
+
+::image::
+
+![](./images/monolith-hell.jpg)
+
+<!-- Complexity:
+What to do when the other system is down, unavailable or crashes? -->
+
+---
+layout: image-content
+---
+
+# The Scale Cube
+
+Scaling may turn out to be not that easy (anymore)
+
+::image::
+
+![](./images/scale-cube.jpg)
+
+---
+layout: quote
+---
+
+# Monolithic Hell
+
+Maintainability, extensibility and testability suffer
+
+---
+layout: section
+---
+
+# MicroServices
+
+::subtitle::
+
+So... MicroServices?
+
+---
+layout: default-image
+---
+
+# So... MicroServices?
+
+<v-clicks>
+
+- Each service is small and easily maintained
+- Can be independently deployed
+- Can be independently scaled
+- Teams can work autonomously
+- Better fault isolation
+- Easy experimentation and adoption of new technologies
+
+</v-clicks>
+
+::image::
+
+![](./images/how-micro.jpg)
+
+<!-- Internals are hidden: Information Hiding / Encapsulation at a higher level -->
+
+---
+layout: default
+---
+
+# How Micro is a MicroService?
+
+<v-clicks depth="2">
+
+- The size of a MicroService is not relevant
+  - A team could be responsible for a single MicroService
+  - So maybe it's not "Micro" at all!
+- What is important
+  - Minimal lead time
+  - Minimal collaboration with other teams
+
+</v-clicks>
+
+<!-- Chatty Services:
+To get Order + Consumer => 2 calls
+OR: /v1/order/5?expand=consumer => 1 call (less chatty)  or use GraphQL
+Synchronous Interprocess Communication:
+Reduced availability: if one service is down, you are down
+Synchronous API call?  Because you are waiting for it!
+ACID: Atomic, Consistent, Isolated, Durable
+MicroServices only has ACD -->
+
+---
+layout: default-image
+---
+
+# No Silver Bullet
+
+There are significant drawbacks & challenges
+
+<v-clicks>
+
+- Finding the right services is challenging
+- Distributed systems are complex
+  - Other services are down or unavailable
+  - Deployment needs coordination
+  - Writing tests spanning multiple services
+  - Additional operational complexity
+- What about cross-cutting concerns
+
+</v-clicks>
+
+::image::
+
+![](./images/no-silver-bullet.jpg)
+
+<!-- Interprocess: network latency, de(serialization) and server processing + potential packet loss/retries & network congestion
+gRPC: Google Remote Procedure Call
+AMQP: Advanced Message Queuing Protocol
+STOMP: Simple (or Streaming) Text Oriented Messaging Protocol
+One-to-many: with publish/subscribe -->
+
+---
+layout: default
+---
+
+# No Silver Bullet
+
+There are significant drawbacks & challenges
+
+If you need to collaborate with different teams for the smallest of changes
+
+If you constantly need to make changes because of changes in other services
+
+**You have just built yourself a distributed monolith**
+
+<v-clicks>
+
+- All of the drawbacks
+- None of the benefits
+
+</v-clicks>
+
+<!-- IDL: OpenApi Specification (from Swagger)
+Semantic Version: Major.Minor.Patch
+Often done: putting the major version in the url
+Put major in header,MIME type, ...
+Robustness Principle
+Be conservative in what you do, be liberal in what you accept
+Provide defaults for new request properties (that conserve the initial behavior)
+Ignore new response properties -->
+
+---
+layout: default
+---
+
+# Meme
+
+![](./images/meme-murder-mystery.jpg)
+
+<!-- REST levels:
+Level 2: GET, POST, PUT and Resources
+Level 3: HATEOS: GET returns urls for operations -->
+
+---
+layout: default
+---
+
+# Loosely Coupled Services
+
+<v-clicks>
+
+- Communication via APIs or Messaging
+- Internals are hidden
+- Each service has its own database
+
+</v-clicks>
+
+- ✅ Can change independently
+- ✅ No locks by other services
+- ⚠️ Queries are harder
+- ⚠️ Maintaining data consistency
+
+<!-- Circuit Breakers: Netflix Hystrix, Polly -->
+
+---
+layout: default
+---
+
+# Obstacles
+
+<v-clicks>
+
+- Network latency & chatty services
+  - Batch calls or combine services?
+- Synchronous Interprocess Communication
+  - Reduces availability
+- Maintain data consistency
+  - Distributed Transactions vs Saga
+- Consistent view of data
+  - Letting go of the monolithic ACID
+
+</v-clicks>
+
+<!-- Default Value: if it's not that important
+Cached Response: if stale data is ok
+The client or frontend can maybe still work with partial data. -->
+
+---
+layout: section
+---
+
+# Interprocess Communication
+
+<!-- Dynamic URL:
+Auto-Scaling
+Failures  and auto-restarts
+(Rolling) Upgrades -->
+
+---
+layout: default
+---
+
+# Interprocess Communication
+
+<v-clicks>
+
+- Monolith: in process calls (<1ms)
+- MicroServices: interprocess (10-500ms)
+  - Synchronous: REST (JSON/XML), gRPC
+  - Async: AMQP, STOMP
+    - Allows one-to-many
+- Binary vs Human Readable
+  - Verbosity: cost, longer parsing, performance
+
+</v-clicks>
+
+---
+layout: default
+---
+
+# Interprocess Communication
+## Defining APIs
+
+New incompatible version deployed becomes a runtime exception rather than a compilation error
+
+<v-clicks>
+
+- Need for IDL: Interface Definition Language
+- Need for a strategy to evolve APIs
+  - Can't force other teams to upgrade (immediately)
+  - Run versions side-by-side -- no lockstep upgrades needed
+    - Semantic versioning
+  - Robustness Principle
+
+</v-clicks>
+
+<!-- Example: Netflix Eureka + Ribbon Http client, Pivotal Spring Cloud
+Platform provided: Docker & Kubernetes  The deployment system handles it -->
+
+---
+layout: default
+---
+
+# Interprocess Communication
+## Defining APIs
+
+Pattern: Proxy & Adapter
+
+<v-clicks>
+
+- Hide that it is a Remote Procedure Invocation
+- Hide the address, port and protocol used
+
+</v-clicks>
+
+<!-- ActiveMQ, RabbitMQ, Kafka, AWS Kinesis, AWS SQS
+Events or Broadcasts -->
+
+---
+layout: default
+---
+
+# Interprocess Communication
+## Circuit Breaker
+
+A proxy that rejects invocations for x time after y consecutive failures
+
+<v-clicks>
+
+- Network timeouts
+- Limit outstanding requests to server
+- Exceeded threshold → Fail immediately
+
+</v-clicks>
+
+<!-- Brokerless: (ex: ZeroMQ)
+Send messages directly from server to receiver
+Reduced availability: both sender and receiver need to be available -->
+
+---
+layout: default
+---
+
+# Interprocess Communication
+## Failure Recovery
+
+<v-clicks>
+
+- Essential → Fail
+- Return a default value
+- Return a cached response
+
+</v-clicks>
+
+Decide on a case per case basis...
+
+<!-- Competing capabilities: pick a broker that supports what you need
+Ordered delivery typically means increased latency
+Guaranteed delivery: Typically a broker promises to deliver a message at least once (receive, handle, crash before acknowledging handled) -->
+
+---
+layout: default
+---
+
+# Interprocess Communication
+## Service Discovery
+
+<v-clicks>
+
+- What is the URL
+  - Monolith: a config file
+  - MicroService: cloud and/or dynamic
+
+</v-clicks>
+
+<!-- Database Transaction Log Tailing:
+Debezium (Kafka), LinkedIn Databus, DynamoDB Streams, Eventuate Tram -->
+
+---
+layout: default
+---
+
+# Interprocess Communication
+## Service Discovery
+
+The solution, as so many times with MicroServices, is to... add another service
+
+**"Service Registry"**
+
+<!-- Replicate data:
+By subscribing to changed events. CQRS covered later on. -->
+
+---
+layout: default
+---
+
+# Interprocess Communication
+## Service Registry
+
+<v-clicks>
+
+- Self-Registration
+  - A service registers itself + health check & heartbeat
+- Client-Side Discovery
+  - Query the Service Registry + cache
+  - + Load balancing
+- Prefer a platform-provided solution
+
+</v-clicks>
+
+<!-- Countermeasures:
+Implement countermeasures to prevent or reduce impact of concurrency anomalies
+Choreography:
+Participants of the saga exchange messages without central point of control
+Orchestration:
+Centralized controller tells participants what to do -->
+
+---
+layout: section
+---
+
+# Asynchronous Messaging
+
+::subtitle::
+
+Interprocess Communication
+
+---
+layout: default
+---
+
+# Interprocess Communication
+## Asynchronous Messaging
+
+<v-clicks depth="2">
+
+- Message Broker
+  - The intermediary between services
+  - Another service 😉
+- Exchange messages over a channel
+- Types of messages
+  - Document: receiver interprets
+  - Command: point-to-point
+  - Event: publish/subscribe
+
+</v-clicks>
+
+<!-- Basically an Anti-Pattern
+Data consistency anomalies:
+Lost updates: overwrite something from another saga
+Dirty reads: read half finished saga
+Non-repeatable reads: two steps of the saga see something different
+Reduced availability: all participants must be available! -->
+
+---
+layout: default
+---
+
+# Interprocess Communication
+## Asynchronous Messaging
+
+Brokerless Messaging:
+
+- ✅ Broker is not the bottleneck or single point of failure
+- ✅ More lightweight
+- ⚠️ Tighter coupling between services
+- ⚠️ Reduced availability
+- ⚠️ Guaranteed delivery is trickier
+
+<!-- For when things go wrong...
+Compensatable Transactions:
+Transactions that can be rolled back by compensating transactions
+Pivot Transactions:
+The go/no-go point of the sage (ex: payment)
+Retriable Transactions:
+After the pivot transaction, if one of these fails, we will try them again -->
+
+---
+layout: default
+---
+
+# Interprocess Communication
+## Asynchronous Messaging
+
+<v-clicks>
+
+- Competing Message Broker Capabilities
+  - Language support
+  - Ordered delivery vs Latency
+  - Persistence: survive a system crash
+  - Durability: receive missed messages after service restart
+  - Competing consumers
+  - Guaranteed delivery: deliver at least once
+
+</v-clicks>
+
+---
+layout: default
+---
+
+# Interprocess Communication
+## Asynchronous Messaging
+
+Deliver AT LEAST ONCE? 😱😱😱
+
+<v-clicks>
+
+- Write idempotent message handlers
+- Track messages and discard duplicates
+  - Pattern: Transactional Outbox
+  - Save the message id in an outbox table and commit this as part of the database transaction
+  - Send the message by polling the outbox
+  - Or by log tailing the database transaction log
+
+</v-clicks>
+
+---
+layout: default
+---
+
+# Interprocess Communication
+## Asynchronous Messaging
+
+Try to eliminate synchronous interactions
+
+<v-clicks>
+
+- Send a message and return a response immediately
+- Replicate data instead of querying
+- Use a Saga
+
+</v-clicks>
+
+---
+layout: default-image
+---
+
+# Interprocess Communication
+## Asynchronous Messaging
+
+Saga: a message driven sequence of local transactions in order to maintain data consistency
+
+<v-clicks>
+
+- Countermeasures for missing Isolation
+- Choreography vs Orchestration
+
+</v-clicks>
+
+::image::
+
+![](./images/saga-warrior.jpg)
+
+---
+layout: default
+---
+
+# Interprocess Communication
+## Asynchronous Messaging
+
+Saga alternative: Distributed Transaction
+
+X/Open XA: Two-phase commit (2PC)
+
+All participants commit or rollback
+
+- ✅ No data consistency anomalies
+- ⚠️ We're basically synchronous again
+- ⚠️ Reduced availability
+- ⚠️ Not supported by MongoDb, RabbitMQ, Kafka
+
+<!-- Transaction Script:
+If it's simple, keep it simple.
+Domain Model:
+Aggregates map to Services.
+Also here challenges: what does it mean to delete an entity? (Fuzzy Boundaries)
+ We'll have DDD sessions 😀
+EventSourcing:
+A developer might forget to send an EntityUpdated event after processing his BL  Use EventSourcing to update aggregates instead!
+ See our CQRS session! -->
+
+---
+layout: default
+---
+
+# Interprocess Communication
+## Asynchronous Messaging
+
+Saga: each service commits
+
+<v-clicks>
+
+- We need compensating messages
+- Compensatable Transactions
+- Pivot Transactions
+- Retriable Transactions
+
+</v-clicks>
+
+---
+layout: default
+---
+
+# Interprocess Communication
+## Asynchronous Messaging
+
+Saga: Choreography
+
+<v-clicks>
+
+- Service handles and sends the next message
+- Must use "Transactional Outbox"!
+- Correlation ID for event mapping
+
+</v-clicks>
+
+<!-- Lead time: from request to deployment -->
+
+---
+layout: default
+---
+
+# Interprocess Communication
+## Asynchronous Messaging
+
+Saga: Choreography
+
+- ✅ Loosely coupled & Simple
+- ⚠️ Flow is defined in multiple places
+- ⚠️ What has (already) happened?
+- ⚠️ Risk of tight coupling
+
+---
+layout: default-image
+---
+
+# Interprocess Communication
+## Asynchronous Messaging
+
+Saga: Orchestration
+
+<v-clicks>
+
+- Orchestrator is a State Machine
+- Orchestrator sequences between states and not contain any logic
+
+</v-clicks>
+
+✅ Easy to test
+
+✅ Recommended
+
+::image::
+
+![](./images/orchestration.jpg)
+
+---
+layout: section
+---
+
+# Business Logic
+
+---
+layout: default-image
+---
+
+# Business Logic
+
+<v-clicks>
+
+- Transaction Script
+- Domain Model
+- EventSourcing
+
+</v-clicks>
+
+::image::
+
+![](./images/business-logic.jpg)
+
+<!-- Example:
+Restaurant app & database does nor support geospatial datatypes (findAvailableRestaurants) -->
+
+---
+layout: default
+---
+
+# Business Logic
+## Domain Events
+
+EntityUpdated events
+
+<v-clicks>
+
+- Noteworthy changes on aggregates
+- Notify for the next step in the process
+- Send notifications (email, SMS, ...)
+- Analyze events for user behavior
+
+</v-clicks>
+
+<!-- Internal Admin App: High bandwidth LAN
+External Clients: Lower performing internet -->
+
+---
+layout: default
+---
+
+# Business Logic
+## Domain Events
+
+EntityUpdated events
+
+<v-clicks>
+
+- ID Only
+  - ✅ Small messages
+  - ⚠️ Consumers need to request
+- Enrichment
+  - ⚠️ Less stable events
+
+</v-clicks>
+
+<!-- Edge functions:
+Authentication, Authorization, Rate limiting, Caching, Metrics collection, Request logging
+Protocol translation: Internal service might use gRPC
+Depends on client: return less data for a mobile client
+Backends for frontends: Netflix Falcor -->
+
+---
+layout: break
+---
+
+# ☕ Break
+
+::timer::
+
+<Timer minutes="10" />
+
+::image::
+
+![](./images/cover-art.jpg)
+
+---
+layout: default
+---
+
+# How Micro is a MicroService?
+
+![](./images/comic-microservice-size.jpg)
+
+<!-- Off the shelf: Netflix Zuul, Traefik, Spring Cloud Gateway, AWS API Gateway, AWS Application Load Balancer -->
+
+---
+layout: section
+---
+
+# Queries
+
+---
+layout: content-image
+---
+
+# Queries
+## Pattern: API Composition
+
+<v-clicks>
+
+- Query multiple services and combine the results
+
+</v-clicks>
+
+- ✅ Easy to implement
+- ⚠️ Network and computing overhead
+- ⚠️ Lack of transactional data consistency
+- ⚠️ Reduced availability
+  - Cached fallbacks
+  - Return incomplete data
+
+::image::
+
+![](./images/api-composition.jpg)
+
+<!-- Spring Security, Apache Shino, NodeJS Passport -->
+
+---
+layout: default-image
+---
+
+# Queries
+## Pattern: CQRS
+
+<v-clicks>
+
+- Maintain read-only Elastic/Solr for complex queries
+- Might be inefficient to select everything
+  - Too much data
+  - Join large datasets in memory
+
+</v-clicks>
+
+::image::
+
+![](./images/cqrs-mirror.jpg)
+
+<!-- Push: using environment variables or files. Files: there are files everywhere.
+Pull: using git, a DB, Spring Cloud Config
+Sensitive data: Hashicorp Vault, AWS Parameter Store
+Pull is centralized, dynamic reconfiguration, transparent decryption, yet another service -->
+
+---
+layout: section
+---
+
+# External APIs
+
+::subtitle::
+
+Internal & External Clients
+
+---
+layout: default-image
+---
+
+# External APIs
+## Internal & External Clients
+
+Don't expose the microservices
+
+<v-clicks>
+
+- Difficult to use, bad dev xp
+- Difficult to force upgrades of 3rd parties
+
+</v-clicks>
+
+Solution: **API Gateway**
+
+::image::
+
+![](./images/external-apis.jpg)
+
+<!-- Ex: HealthChecks.NET, Spring Boot Actuator
+Checked by: Docker, Kubernetes, Netflix Eureka
+More detailed:
+Do a db query
+Check external services are available -->
+
+---
+layout: default
+---
+
+# External APIs
+## API Gateway
+
+<v-clicks>
+
+- API Composition
+- Authentication & other edge functions
+- Routing
+- Protocol Translation
+- One-size-fits-all or data depends on client
+  - Pattern: Backends for Frontends
+
+</v-clicks>
+
+<!-- You don't want to go checking log files on different servers
+Application Metrics: Heartbeats & Prometheus
+Exception Tracking: de-duplicate exceptions. Alerting with for example Sentry.IO -->
+
+---
+layout: default
+---
+
+# External APIs
+## API Gateway
+
+- Handle partial failures
+- Uses Service Discovery Patterns
+- Potential bottleneck
+- Off the shelf or GraphQL
+
+---
+layout: section
+---
+
+# Production Ready
+
+::subtitle::
+
+Developing production-ready Services
+
+---
+layout: default-image
+---
+
+# Production Ready
+
+<v-clicks>
+
+- Security
+- Configurability
+- Observability
+
+</v-clicks>
+
+::image::
+
+![](./images/production-ready.jpg)
+
+<!-- Chassis: GoKit, Micro
+Mesh: Istio, Conduit, Linkerd -->
+
+---
+layout: default-image
+---
+
+# Production Ready
+## Security
+
+<v-clicks>
+
+- Authentication & Authorization
+- Auditing
+- Secure Communication (TLS)
+- Access Token (by API Gateway)
+  - JWT or Oauth 2.0
+
+</v-clicks>
+
+::image::
+
+![](./images/security-key.jpg)
+
+---
+layout: default-image
+---
+
+# Production Ready
+## Configurability
+
+<v-clicks>
+
+- Externalized Configuration
+  - Push Model
+    - CI passes configuration to the service
+  - Pull Model
+    - Service reads config from a service
+
+</v-clicks>
+
+::image::
+
+![](./images/configurability.jpg)
+
+---
+layout: default-image
+---
+
+# Production Ready
+## Observability
+
+<v-clicks depth="2">
+
+- Healthchecks
+  - Simple 200/500
+  - Or more detailed
+    - Watch out for oversharing
+  - Used by the deployment infrastructure
+
+</v-clicks>
+
+::image::
+
+![](./images/observability-eye.jpg)
+
+<!-- Elastic Beanstalk, Packer for VirtualBox, VMWare, Aminator, ... -->
+
+---
+layout: default-image
+---
+
+# Production Ready
+## Observability
+
+<v-clicks>
+
+- Log Aggregation
+  - Elastic, Splunk, DataDog, ...
+- Distributed Tracing
+  - Log a request ID!
+- Application Metrics
+  - CPU, memory, disk utilization
+- Exception Tracking & Alerting
+
+</v-clicks>
+
+::image::
+
+![](./images/log-aggregation.jpg)
+
+<!-- Ex: Docker, Podman
+Registry: Docker Cloud Registry, AWS EC2 Container Registry -->
+
+---
+layout: default
+---
+
+# Cross-Cutting Concerns
+
+Circuit Breaker, Tracing, Logging, Service Discovery, Health checks, Configuration, ...
+
+![](./images/one-million-microservices.jpg)
+
+<!-- Service Mesh: Separate deployment from release
+Deploy, test and only then release
+Maybe next Architecture/Cloud sessions on Kubernetes... -->
+
+---
+layout: default-image
+---
+
+# Production Ready
+
+<v-clicks>
+
+- Pattern: MicroService Chassis
+  - Combine all cross-cutting concerns
+- Pattern: Service Mesh
+  - Route all traffic through a layer that does the chassis stuff + load balancing, routing, ...
+
+</v-clicks>
+
+::image::
+
+![](./images/chassis.jpg)
+
+<!-- AWS Lambda, Azure Functions
+Long running processes: don't put a message handler on serverless -->
+
+---
+layout: section
+---
+
+# Deployment
+
+::subtitle::
+
+It needs to be highly automated
+
+---
+layout: default
+---
+
+# Deployment
+
+Deploying a million services manually is not feasible
+
+DevOps Teams
+
+<v-clicks>
+
+- Pets vs Cattle
+- Snowflake vs Phoenix
+
+</v-clicks>
+
+---
+layout: default
+---
+
+# Deployment
+## Language-Specific Package Pattern
+
+Copy the code & start
+
+- ✅ Easy & fast
+- ✅ Good way to get started
+- ⚠️ Different versions of .NET / SDK
+- ⚠️ Service crashes on same machine can impact others
+- ⚠️ A service can utilize all CPU
+- ⚠️ Manually decide on what machines to put which services
+
+---
+layout: default
+---
+
+# Deployment
+## A Virtual Machine (VM)
+
+Ship the whole thing: OS, Dependencies & App
+
+- ✅ Got everything & the right versions too!
+- ✅ Fixed amount of CPU & memory
+- ⚠️ Overhead of an entire OS
+- ⚠️ Slower: need to send a lot of bytes
+- ⚠️ Must maintain the machines (patches & updates)
+- ⚠️ Might be paying for lots of unused resources
+
+---
+layout: default
+---
+
+# Deployment
+## A Container Image
+
+Build image, push to registry, start container
+
+- ✅ Isolated
+- ✅ Can specify CPU & Memory
+- ✅ More lightweight than a VM
+- ⚠️ You're responsible for the Image administration
+
+---
+layout: default
+---
+
+# Deployment
+## Kubernetes
+
+Docker Orchestration: uses a set of machines with Docker as a pool of resources as if it were a single machine.
+
+Service Management: named & versioned services
+
+<v-clicks>
+
+- Zero downtime deployments: rolling updates / rollbacks
+- Have x healthy instances of a service (health checks)
+- Load balancing
+
+</v-clicks>
+
+Scheduling: Checks service requirements to select a machine
+
+(Anti)-Affinity: services to (not) run on the same machine
+
+---
+layout: default
+---
+
+# Deployment
+## Serverless
+
+- ✅ Only pay for what you use
+- ✅ Eliminate sysadmin tasks
+- ✅ Elasticity: spin up as needed to handle the load
+- ⚠️ Cold startup
+- ⚠️ Not intended for long running processes
+
+---
+layout: section
+---
+
+# Refactoring
+
+::subtitle::
+
+When to move to MicroServices
+
+---
+layout: default-image
+---
+
+# Refactoring
+## When to move to MicroServices
+
+Don't!
+
+<v-clicks>
+
+- Slow Delivery & Deployment?
+  - → Automated testing!
+- Poor Scalability?
+  - → Scale Cube!
+  - → First try simpler solutions!
+
+</v-clicks>
+
+::image::
+
+![](./images/refactoring.jpg)
+
+<!-- Rewrite:
+Moving target
+Or no more delivery for a long time
+High value areas:
+Can demo benefit to the business quickly
+Extract a service on an area that is actively being developer -->
+
+---
+layout: default-image
+---
+
+# Refactoring
+## When to move to MicroServices
+
+If you find yourself in a hole, stop digging
+
+::image::
+
+![](./images/stop-digging.jpg)
+
+<!-- Move data: to the new services
+Replicate: and make the monolith data read-only
+Or: Write new features as services
+Or: Focus o
+Timebox service architectures. -->
+
+---
+layout: default
+---
+
+# Refactoring
+## Moving to MicroServices
+
+Strangle the monolith
+
+<v-clicks>
+
+- Don't attempt a rewrite
+- Migrate high value areas
+  - These can then evolve independently
+- You don't need all the MicroService infrastructure (right away)
+
+</v-clicks>
+
+<!-- API Gateway: Route to monolith or a MicroService
+Glue Code: Messaging or Invoke REST APIs from the Monolith -->
+
+---
+layout: default
+---
+
+# Refactoring
+## Moving to MicroServices
+
+<v-clicks>
+
+- Split the UI
+- Splitting the domain
+  - Potentially major surgery
+  - Hexagonal: limit changes to in/out adapters
+- Database Refactorings
+  - Move data
+  - Replicate with triggers
+
+</v-clicks>
+
+---
+layout: default
+---
+
+# Refactoring
+## Moving to MicroServices
+
+Minimize changes to the monolith
+
+<v-clicks>
+
+- API Gateway
+- Integration Glue Code
+- Anti-Corruption Layer
+
+</v-clicks>
+
+---
+layout: end
+---
+
+---
+layout: socials
+---
+
+---
+layout: default
+---
+
+# Powerpoint Source
+
+<div class="flex flex-col items-center justify-center h-full -mt-16">
+  <div class="w-64 h-64">
+    <QRCode url="https://github.com/itenium-be/Presentations" color="#343434" />
+  </div>
+  <a href="https://github.com/itenium-be/Presentations" class="mt-4 text-lg">github.com/itenium-be/Presentations</a>
+</div>
