@@ -1,0 +1,11 @@
+{
+  "private": true,
+  "scripts": {
+    "dev": "slidev",
+    "build": "slidev build --base /2024-10-17-MicroServices/",
+    "export": "slidev export --format pdf"
+  },
+  "dependencies": {
+    "@slidev/cli": "^51.0.0"
+  }
+}

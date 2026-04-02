@@ -130,10 +130,16 @@ If your application is very successful, the monolith may turn out to be not such
 <!-- Lead time: from request to deployment -->
 
 ---
-layout: content-image
+layout: image-content
 ---
 
 # Monolithic Hell
+
+::image::
+
+![](./images/monolith-hell.jpg)
+
+::content::
 
 <v-clicks>
 
@@ -144,10 +150,6 @@ layout: content-image
 - Locked in an increasingly obsolete stack
 
 </v-clicks>
-
-::image::
-
-![](./images/monolith-hell.jpg)
 
 <!-- Complexity:
 What to do when the other system is down, unavailable or crashes? -->
@@ -165,12 +167,14 @@ Scaling may turn out to be not that easy (anymore)
 ![](./images/scale-cube.jpg)
 
 ---
-layout: quote
+layout: quote-alt
 ---
 
-# Monolithic Hell
-
 Maintainability, extensibility and testability suffer
+
+::image::
+
+![](./images/monolith-hell-fire.jpg)
 
 ---
 layout: section
@@ -201,12 +205,12 @@ layout: default-image
 
 ::image::
 
-![](./images/how-micro.jpg)
+![](./images/no-silver-bullet.jpg)
 
 <!-- Internals are hidden: Information Hiding / Encapsulation at a higher level -->
 
 ---
-layout: default
+layout: default-image
 ---
 
 # How Micro is a MicroService?
@@ -221,6 +225,10 @@ layout: default
   - Minimal collaboration with other teams
 
 </v-clicks>
+
+::image::
+
+![](./images/how-micro.jpg)
 
 <!-- Chatty Services:
 To get Order + Consumer => 2 calls
@@ -253,7 +261,7 @@ There are significant drawbacks & challenges
 
 ::image::
 
-![](./images/no-silver-bullet.jpg)
+![](./images/no-silver-bullet-wooden.jpg)
 
 <!-- Interprocess: network latency, de(serialization) and server processing + potential packet loss/retries & network congestion
 gRPC: Google Remote Procedure Call
@@ -262,7 +270,7 @@ STOMP: Simple (or Streaming) Text Oriented Messaging Protocol
 One-to-many: with publish/subscribe -->
 
 ---
-layout: default
+layout: default-image
 ---
 
 # No Silver Bullet
@@ -282,6 +290,10 @@ If you constantly need to make changes because of changes in other services
 
 </v-clicks>
 
+::image::
+
+![](./images/no-silver-bullet-wooden.jpg)
+
 <!-- IDL: OpenApi Specification (from Swagger)
 Semantic Version: Major.Minor.Patch
 Often done: putting the major version in the url
@@ -292,10 +304,10 @@ Provide defaults for new request properties (that conserve the initial behavior)
 Ignore new response properties -->
 
 ---
-layout: default
+layout: quote-image
 ---
 
-# Meme
+::image::
 
 ![](./images/meme-murder-mystery.jpg)
 
@@ -304,7 +316,7 @@ Level 2: GET, POST, PUT and Resources
 Level 3: HATEOS: GET returns urls for operations -->
 
 ---
-layout: default
+layout: default-image
 ---
 
 # Loosely Coupled Services
@@ -314,18 +326,21 @@ layout: default
 - Communication via APIs or Messaging
 - Internals are hidden
 - Each service has its own database
-
-</v-clicks>
-
 - ✅ Can change independently
 - ✅ No locks by other services
 - ⚠️ Queries are harder
 - ⚠️ Maintaining data consistency
 
+</v-clicks>
+
+::image::
+
+![](./images/loosely-coupled.jpg)
+
 <!-- Circuit Breakers: Netflix Hystrix, Polly -->
 
 ---
-layout: default
+layout: default-image
 ---
 
 # Obstacles
@@ -342,6 +357,10 @@ layout: default
   - Letting go of the monolithic ACID
 
 </v-clicks>
+
+::image::
+
+![](./images/obstacles-boulder.jpg)
 
 <!-- Default Value: if it's not that important
 Cached Response: if stale data is ok
