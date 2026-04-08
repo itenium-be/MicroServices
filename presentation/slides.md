@@ -1,10 +1,13 @@
 ---
 theme: ./theme
-title: 2024-10-17-MicroServices
+title: MicroServices
+subTitle: "MicroServices Patterns"
 transition: fade
 session-time: 120min
 track: Architecture
 type: Theoretical
+first: 2024-10-17
+lastUpdate: 2026-04-09
 ---
 
 # Micro
@@ -16,7 +19,7 @@ type: Theoretical
 
 ---
 layout: agenda
-size: sm
+textSize: sm
 items:
   - The Monolith
   - MicroServices
@@ -31,12 +34,37 @@ items:
 <!-- The team grew, the codebase grew, the product grew -->
 
 ---
-layout: content-image
+layout: default-aside
+disabled: true
+---
+
+# Chapters
+
+<v-clicks>
+
+- The Monolith
+- Interprocess Communication
+- Transactions
+- Business Logic
+- Queries
+- External APIs
+- Testing
+- Deployment
+- Decomposition & Refactoring
+
+</v-clicks>
+
+::image::
+
+![](./images/chapters-decorative.jpg)
+
+---
+layout: two-col-image-text
 ---
 
 # Microservices Patterns
 
-Tis een halve boekbespreking
+## Tis een halve boekbespreking
 
 <v-clicks depth="2">
 
@@ -55,12 +83,12 @@ Describes a collection of Patterns
 <!-- Each service can be X & Z scaled -->
 
 ---
-layout: default-image
+layout: default-aside
 ---
 
 # Microservices Patterns
 
-Design Patterns... Again?
+## Design Patterns... Again?
 
 <v-clicks depth="2">
 
@@ -90,7 +118,7 @@ layout: section
 Monolithic Architecture
 
 ---
-layout: default-image
+layout: default-aside
 ---
 
 # Monolithic Architecture
@@ -118,7 +146,41 @@ Typically a good top level architecture to start with
 https://www.thoughtworks.com/insights/blog/customer-experience/inverse-conway-maneuver-product-development-teams -->
 
 ---
-layout: quote-alt
+layout: default-aside
+disabled: true
+---
+
+# 4+1 View Model
+
+- Implementation View:
+  - Monolith: a single exe
+  - MicroServices: multiple exes
+- Logical View:
+  - Both are layered or hexagonal
+
+::image::
+
+![](./images/no-silver-bullet-wooden.jpg)
+
+---
+layout: statement
+disabled: true
+---
+
+Organizations which design systems … are constrained to produce designs which are copies of the communication structures of these organizations
+
+::author::
+
+**Melvin Conway**
+
+Reverse Conway Maneuver
+
+::image::
+
+![](./images/no-silver-bullet-wooden.jpg)
+
+---
+layout: statement
 ---
 
 If your application is very successful, the monolith may turn out to be not such a great idea after all
@@ -130,7 +192,7 @@ If your application is very successful, the monolith may turn out to be not such
 <!-- Lead time: from request to deployment -->
 
 ---
-layout: image-content
+layout: two-col-image-text
 ---
 
 # Monolithic Hell
@@ -155,7 +217,7 @@ layout: image-content
 What to do when the other system is down, unavailable or crashes? -->
 
 ---
-layout: image-content
+layout: two-col-image-text
 ---
 
 # The Scale Cube
@@ -167,7 +229,7 @@ Scaling may turn out to be not that easy (anymore)
 ![](./images/scale-cube.jpg)
 
 ---
-layout: quote-alt
+layout: statement
 ---
 
 Maintainability, extensibility and testability suffer
@@ -187,7 +249,7 @@ layout: section
 So... MicroServices?
 
 ---
-layout: default-image
+layout: default-aside
 ---
 
 # So... MicroServices?
@@ -210,7 +272,7 @@ layout: default-image
 <!-- Internals are hidden: Information Hiding / Encapsulation at a higher level -->
 
 ---
-layout: default-image
+layout: default-aside
 ---
 
 # How Micro is a MicroService?
@@ -240,7 +302,7 @@ ACID: Atomic, Consistent, Isolated, Durable
 MicroServices only has ACD -->
 
 ---
-layout: default-image
+layout: default-aside
 ---
 
 # No Silver Bullet
@@ -270,7 +332,7 @@ STOMP: Simple (or Streaming) Text Oriented Messaging Protocol
 One-to-many: with publish/subscribe -->
 
 ---
-layout: default-image
+layout: default-aside
 ---
 
 # No Silver Bullet
@@ -316,7 +378,7 @@ Level 2: GET, POST, PUT and Resources
 Level 3: HATEOS: GET returns urls for operations -->
 
 ---
-layout: default-image
+layout: default-aside
 ---
 
 # Loosely Coupled Services
@@ -340,7 +402,7 @@ layout: default-image
 <!-- Circuit Breakers: Netflix Hystrix, Polly -->
 
 ---
-layout: default-image
+layout: default-aside
 ---
 
 # Obstacles
@@ -395,6 +457,8 @@ layout: default
 
 </v-clicks>
 
+<!-- PPTX slide 18: no image in original -->
+
 ---
 layout: default
 ---
@@ -438,7 +502,7 @@ Pattern: Proxy & Adapter
 Events or Broadcasts -->
 
 ---
-layout: default
+layout: default-aside
 ---
 
 # Interprocess Communication
@@ -453,6 +517,10 @@ A proxy that rejects invocations for x time after y consecutive failures
 - Exceeded threshold → Fail immediately
 
 </v-clicks>
+
+::image::
+
+![](./images/circuit-breaker.jpg)
 
 <!-- Brokerless: (ex: ZeroMQ)
 Send messages directly from server to receiver
@@ -512,7 +580,7 @@ The solution, as so many times with MicroServices, is to... add another service
 By subscribing to changed events. CQRS covered later on. -->
 
 ---
-layout: default
+layout: default-aside
 ---
 
 # Interprocess Communication
@@ -528,6 +596,10 @@ layout: default
 - Prefer a platform-provided solution
 
 </v-clicks>
+
+::image::
+
+![](./images/service-registry.jpg)
 
 <!-- Countermeasures:
 Implement countermeasures to prevent or reduce impact of concurrency anomalies
@@ -547,7 +619,7 @@ layout: section
 Interprocess Communication
 
 ---
-layout: default
+layout: default-aside
 ---
 
 # Interprocess Communication
@@ -566,6 +638,10 @@ layout: default
 
 </v-clicks>
 
+::image::
+
+![](./images/message-broker.jpg)
+
 <!-- Basically an Anti-Pattern
 Data consistency anomalies:
 Lost updates: overwrite something from another saga
@@ -574,7 +650,7 @@ Non-repeatable reads: two steps of the saga see something different
 Reduced availability: all participants must be available! -->
 
 ---
-layout: default
+layout: default-aside
 ---
 
 # Interprocess Communication
@@ -587,6 +663,10 @@ Brokerless Messaging:
 - ⚠️ Tighter coupling between services
 - ⚠️ Reduced availability
 - ⚠️ Guaranteed delivery is trickier
+
+::image::
+
+![](./images/brokerless.jpg)
 
 <!-- For when things go wrong...
 Compensatable Transactions:
@@ -653,7 +733,7 @@ Try to eliminate synchronous interactions
 </v-clicks>
 
 ---
-layout: default-image
+layout: default-aside
 ---
 
 # Interprocess Communication
@@ -701,7 +781,7 @@ A developer might forget to send an EntityUpdated event after processing his BL 
  See our CQRS session! -->
 
 ---
-layout: default
+layout: default-aside
 ---
 
 # Interprocess Communication
@@ -718,8 +798,12 @@ Saga: each service commits
 
 </v-clicks>
 
+::image::
+
+![](./images/saga-compensating.jpg)
+
 ---
-layout: default
+layout: default-aside
 ---
 
 # Interprocess Communication
@@ -735,10 +819,14 @@ Saga: Choreography
 
 </v-clicks>
 
+::image::
+
+![](./images/saga-choreography.jpg)
+
 <!-- Lead time: from request to deployment -->
 
 ---
-layout: default
+layout: default-aside
 ---
 
 # Interprocess Communication
@@ -751,8 +839,12 @@ Saga: Choreography
 - ⚠️ What has (already) happened?
 - ⚠️ Risk of tight coupling
 
+::image::
+
+![](./images/saga-choreography.jpg)
+
 ---
-layout: default-image
+layout: default-aside
 ---
 
 # Interprocess Communication
@@ -782,7 +874,7 @@ layout: section
 # Business Logic
 
 ---
-layout: default-image
+layout: default-aside
 ---
 
 # Business Logic
@@ -803,7 +895,7 @@ layout: default-image
 Restaurant app & database does nor support geospatial datatypes (findAvailableRestaurants) -->
 
 ---
-layout: default
+layout: default-aside
 ---
 
 # Business Logic
@@ -820,11 +912,15 @@ EntityUpdated events
 
 </v-clicks>
 
+::image::
+
+![](./images/domain-events.jpg)
+
 <!-- Internal Admin App: High bandwidth LAN
 External Clients: Lower performing internet -->
 
 ---
-layout: default
+layout: default-aside
 ---
 
 # Business Logic
@@ -841,6 +937,10 @@ EntityUpdated events
   - ⚠️ Less stable events
 
 </v-clicks>
+
+::image::
+
+![](./images/domain-events.jpg)
 
 <!-- Edge functions:
 Authentication, Authorization, Rate limiting, Caching, Metrics collection, Request logging
@@ -863,10 +963,12 @@ layout: break
 ![](./images/cover-art.jpg)
 
 ---
-layout: default
+layout: quote-image
 ---
 
 # How Micro is a MicroService?
+
+::image::
 
 ![](./images/comic-microservice-size.jpg)
 
@@ -879,7 +981,7 @@ layout: section
 # Queries
 
 ---
-layout: content-image
+layout: two-col-image-text
 ---
 
 # Queries
@@ -905,7 +1007,7 @@ layout: content-image
 <!-- Spring Security, Apache Shino, NodeJS Passport -->
 
 ---
-layout: default-image
+layout: default-aside
 ---
 
 # Queries
@@ -940,7 +1042,7 @@ layout: section
 Internal & External Clients
 
 ---
-layout: default-image
+layout: default-aside
 ---
 
 # External APIs
@@ -968,7 +1070,7 @@ Do a db query
 Check external services are available -->
 
 ---
-layout: default
+layout: default-aside
 ---
 
 # External APIs
@@ -985,12 +1087,16 @@ layout: default
 
 </v-clicks>
 
+::image::
+
+![](./images/api-gateway.jpg)
+
 <!-- You don't want to go checking log files on different servers
 Application Metrics: Heartbeats & Prometheus
 Exception Tracking: de-duplicate exceptions. Alerting with for example Sentry.IO -->
 
 ---
-layout: default
+layout: default-aside
 ---
 
 # External APIs
@@ -1000,6 +1106,10 @@ layout: default
 - Uses Service Discovery Patterns
 - Potential bottleneck
 - Off the shelf or GraphQL
+
+::image::
+
+![](./images/api-gateway.jpg)
 
 ---
 layout: section
@@ -1012,7 +1122,7 @@ layout: section
 Developing production-ready Services
 
 ---
-layout: default-image
+layout: default-aside
 ---
 
 # Production Ready
@@ -1033,7 +1143,7 @@ layout: default-image
 Mesh: Istio, Conduit, Linkerd -->
 
 ---
-layout: default-image
+layout: default-aside
 ---
 
 # Production Ready
@@ -1054,7 +1164,7 @@ layout: default-image
 ![](./images/security-key.jpg)
 
 ---
-layout: default-image
+layout: default-aside
 ---
 
 # Production Ready
@@ -1075,7 +1185,7 @@ layout: default-image
 ![](./images/configurability.jpg)
 
 ---
-layout: default-image
+layout: default-aside
 ---
 
 # Production Ready
@@ -1098,7 +1208,7 @@ layout: default-image
 <!-- Elastic Beanstalk, Packer for VirtualBox, VMWare, Aminator, ... -->
 
 ---
-layout: default-image
+layout: default-aside
 ---
 
 # Production Ready
@@ -1125,11 +1235,30 @@ Registry: Docker Cloud Registry, AWS EC2 Container Registry -->
 
 ---
 layout: default
+disabled: true
+---
+
+# Production Ready
+## Audit Logging
+
+<v-clicks>
+
+- Customer Support
+- Ensure Compliance
+- Detect suspicious behavior
+- "Easy" with EventSourcing
+
+</v-clicks>
+
+---
+layout: quote-image
 ---
 
 # Cross-Cutting Concerns
 
 Circuit Breaker, Tracing, Logging, Service Discovery, Health checks, Configuration, ...
+
+::image::
 
 ![](./images/one-million-microservices.jpg)
 
@@ -1138,7 +1267,7 @@ Deploy, test and only then release
 Maybe next Architecture/Cloud sessions on Kubernetes... -->
 
 ---
-layout: default-image
+layout: default-aside
 ---
 
 # Production Ready
@@ -1170,7 +1299,7 @@ layout: section
 It needs to be highly automated
 
 ---
-layout: default
+layout: default-aside
 ---
 
 # Deployment
@@ -1185,6 +1314,10 @@ DevOps Teams
 - Snowflake vs Phoenix
 
 </v-clicks>
+
+::image::
+
+![](./images/deployment.jpg)
 
 ---
 layout: default
@@ -1279,7 +1412,7 @@ layout: section
 When to move to MicroServices
 
 ---
-layout: default-image
+layout: default-aside
 ---
 
 # Refactoring
@@ -1309,7 +1442,7 @@ Can demo benefit to the business quickly
 Extract a service on an area that is actively being developer -->
 
 ---
-layout: default-image
+layout: default-aside
 ---
 
 # Refactoring
@@ -1328,7 +1461,7 @@ Or: Focus o
 Timebox service architectures. -->
 
 ---
-layout: default
+layout: default-aside
 ---
 
 # Refactoring
@@ -1345,11 +1478,15 @@ Strangle the monolith
 
 </v-clicks>
 
+::image::
+
+![](./images/strangle-monolith.jpg)
+
 <!-- API Gateway: Route to monolith or a MicroService
 Glue Code: Messaging or Invoke REST APIs from the Monolith -->
 
 ---
-layout: default
+layout: default-aside
 ---
 
 # Refactoring
@@ -1367,8 +1504,12 @@ layout: default
 
 </v-clicks>
 
+::image::
+
+![](./images/strangle-monolith.jpg)
+
 ---
-layout: default
+layout: default-aside
 ---
 
 # Refactoring
@@ -1383,6 +1524,10 @@ Minimize changes to the monolith
 - Anti-Corruption Layer
 
 </v-clicks>
+
+::image::
+
+![](./images/strangle-monolith.jpg)
 
 ---
 layout: end
@@ -1400,7 +1545,7 @@ layout: default
 
 <div class="flex flex-col items-center justify-center h-full -mt-16">
   <div class="w-64 h-64">
-    <QRCode url="https://github.com/itenium-be/Presentations" color="#343434" />
+    <QRCode url="https://github.com/itenium-be/MicroServices" color="#343434" />
   </div>
-  <a href="https://github.com/itenium-be/Presentations" class="mt-4 text-lg">github.com/itenium-be/Presentations</a>
+  <a href="https://github.com/itenium-be/MicroServices" class="mt-4 text-lg">github.com/itenium-be/MicroServices</a>
 </div>
