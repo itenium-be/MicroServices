@@ -1023,6 +1023,12 @@ The go/no-go point of the sage (ex: payment)
 
 **Retriable Transactions**:  
 After the pivot transaction, if one of these fails, we will try them again
+
+**Countermeasures for missing isolation:**
+- **Semantic lock** — flag the row "in-progress"
+- **Commutative updates** — credit/debit, not "set balance"
+- **Pessimistic view** — reorder steps so sensitive ones happen last
+- **Reread value** — abort if data changed since you read it
 -->
 
 ---
