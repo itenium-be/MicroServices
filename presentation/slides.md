@@ -1679,14 +1679,6 @@ layout: socials
 ---
 
 ---
-layout: default
+layout: source
+source: itenium-be/MicroServices
 ---
-
-# Powerpoint Source
-
-<div class="flex flex-col items-center justify-center h-full -mt-16">
-  <div class="w-64 h-64">
-    <QRCode url="https://github.com/itenium-be/MicroServices" color="#343434" />
-  </div>
-  <a href="https://github.com/itenium-be/MicroServices" class="mt-4 text-lg">github.com/itenium-be/MicroServices</a>
-</div>
