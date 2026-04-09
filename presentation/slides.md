@@ -1449,7 +1449,7 @@ textSize: sm
 <!--
 OTel is the OpenAPI of observability: write once, swap backends.
 
-A single `trace_id` flows through every service involved in handling a request. Logs, metrics and traces all reference it, so you can pivot from "this log line" to "the full request that produced it" in one click. The trace_id rides on the `traceparent` HTTP header — that's a W3C standard now, so cross-vendor traces just work.
+**Trace correlation**: A single `trace_id` flows through every service involved in handling a request. Logs, metrics and traces all reference it, so you can pivot from "this log line" to "the full request that produced it" in one click. The trace_id rides on the `traceparent` HTTP header — that's a W3C standard now, so cross-vendor traces just work.
 
 You don't want to go checking log files on different servers. Aggregate everything into Elastic, Splunk, Datadog, Loki — pick one.
 
