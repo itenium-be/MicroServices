@@ -684,8 +684,7 @@ layout: default-aside
 ![](./images/message-broker.jpg)
 
 <!--
-ActiveMQ, RabbitMQ, Kafka, AWS Kinesis, AWS SQS
-
+ActiveMQ, RabbitMQ, Kafka, AWS Kinesis, AWS SQS  
 Events or Broadcasts
 -->
 ---
@@ -693,9 +692,10 @@ layout: default-aside
 ---
 
 # Interprocess Communication
-## Asynchronous Messaging
+## Brokerless Messaging
 
-Brokerless Messaging:
+<div class="no-bullets">
+<v-clicks>
 
 - ✅ Broker is not the bottleneck or single point of failure
 - ✅ More lightweight
@@ -703,15 +703,16 @@ Brokerless Messaging:
 - ⚠️ Reduced availability
 - ⚠️ Guaranteed delivery is trickier
 
+</v-clicks>
+</div>
+
 ::image::
 
 ![](./images/brokerless.jpg)
 
 <!--
-**Brokerless**: (ex: ZeroMQ)
-
-Send messages directly from server to receiver
-
+**Brokerless**: (ex: ZeroMQ)  
+Send messages directly from server to receiver  
 **Reduced availability**: both sender and receiver need to be available
 -->
 ---
@@ -719,17 +720,16 @@ layout: default
 ---
 
 # Interprocess Communication
-## Asynchronous Messaging
+## Competing Message Broker Capabilities
 
-<v-clicks depth="2">
+<v-clicks>
 
-- Competing Message Broker Capabilities
-  - Language support
-  - Ordered delivery vs Latency
-  - Persistence: survive a system crash
-  - Durability: receive missed messages after service restart
-  - Competing consumers
-  - Guaranteed delivery: deliver at least once
+- Language support
+- Ordered delivery vs Latency
+- Persistence: survive a system crash
+- Durability: receive missed messages after service restart
+- Competing consumers
+- Guaranteed delivery: **deliver at least once**
 
 </v-clicks>
 
@@ -742,28 +742,36 @@ Guaranteed delivery: Typically a broker promises to deliver a message at least o
 -->
 ---
 layout: default
+textSize: sm
 ---
 
 # Interprocess Communication
-## Asynchronous Messaging
+## Pattern: Transactional Outbox
 
-Deliver AT LEAST ONCE? 😱😱😱
+Brokers deliver AT LEAST ONCE 😱 -- you can't atomically write to a DB **and** publish
 
-<v-clicks depth="2">
+<v-clicks>
 
-- Write idempotent message handlers
-- Track messages and discard duplicates
-  - Pattern: Transactional Outbox
-  - Save the message id in an outbox table and commit this as part of the database transaction
-  - Send the message by polling the outbox
-  - Or by log tailing the database transaction log
+- Write the message to an `outbox` table in the **same** DB transaction
+- A separate process publishes from the outbox
+  - Polling publisher (simple, higher latency)
+  - Transaction log tailing (Debezium, low latency)
+- ✅ Atomic with your business data
+- ⚠️ Consumers must still be idempotent (at-least-once)
+- ⚠️ Eventually consistent -- message arrives *after* the commit
 
 </v-clicks>
 
 <!--
-**Database Transaction Log Tailing:**  
-Debezium (Kafka), LinkedIn Databus, DynamoDB Streams, Eventuate Tram
+**The dual-write trap**: naive code does `db.save(); broker.publish()`. If the process crashes between these two lines, you have a DB row but no event -- silently inconsistent. The opposite is just as bad: event published, transaction rolled back.
+
+**Why "consumers must still be idempotent"**: outbox guarantees the message gets sent at least once, but the broker can still deliver it multiple times. Same dedup story as the HTTP `Idempotency-Key` slide earlier -- different transport, same fix.
+
+**Database Transaction Log Tailing**: Debezium (Kafka), AWS DynamoDB Streams, MongoDB Change Streams, SQL Server CDC, LinkedIn Databus, Eventuate Tram.
+
+**Why this slide exists**: this is THE pattern that makes event-driven microservices work. Get it wrong and you'll spend years debugging "missing events".
 -->
+
 ---
 layout: default
 ---
