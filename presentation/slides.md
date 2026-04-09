@@ -30,9 +30,6 @@ items:
   - Production Ready
   - Deployment
 ---
-
-<!-- The team grew, the codebase grew, the product grew -->
-
 ---
 layout: default-aside
 disabled: true
@@ -77,9 +74,6 @@ image: ./images/book-microservices-patterns.jpg
 - Describes a collection of Patterns
 
 </v-clicks>
-
-<!-- Each service can be X & Z scaled -->
-
 ---
 layout: default-aside
 ---
@@ -141,10 +135,6 @@ Typically a good top level architecture to start with
 ::image::
 
 ![](./images/monolith-clouds.jpg)
-
-<!-- https://en.wikipedia.org/wiki/Conway%27s_law
-https://www.thoughtworks.com/insights/blog/customer-experience/inverse-conway-maneuver-product-development-teams -->
-
 ---
 layout: default-aside
 disabled: true
@@ -179,6 +169,10 @@ Reverse Conway Maneuver
 
 ![](./images/no-silver-bullet-wooden.jpg)
 
+<!--
+https://en.wikipedia.org/wiki/Conway%27s_law
+https://www.thoughtworks.com/insights/blog/customer-experience/inverse-conway-maneuver-product-development-teams
+-->
 ---
 layout: statement
 ---
@@ -189,8 +183,9 @@ If your application is very successful, the monolith may turn out to be not such
 
 ![](./images/monolith-vs-success.jpg)
 
-<!-- Lead time: from request to deployment -->
-
+<!--
+The team grew, the codebase grew, the product grew
+-->
 ---
 layout: two-col-image-text
 ---
@@ -212,10 +207,6 @@ layout: two-col-image-text
 - Locked in an increasingly obsolete stack
 
 </v-clicks>
-
-<!-- Complexity:
-What to do when the other system is down, unavailable or crashes? -->
-
 ---
 layout: two-col-image-text
 ---
@@ -270,8 +261,9 @@ textSize: xl
 
 ![](./images/no-silver-bullet.jpg)
 
-<!-- Internals are hidden: Information Hiding / Encapsulation at a higher level -->
-
+<!--
+Each service can be X & Z scaled
+-->
 ---
 layout: default-aside
 textSize: xl
@@ -294,15 +286,9 @@ textSize: xl
 
 ![](./images/how-micro.jpg)
 
-<!-- Chatty Services:
-To get Order + Consumer => 2 calls
-OR: /v1/order/5?expand=consumer => 1 call (less chatty)  or use GraphQL
-Synchronous Interprocess Communication:
-Reduced availability: if one service is down, you are down
-Synchronous API call?  Because you are waiting for it!
-ACID: Atomic, Consistent, Isolated, Durable
-MicroServices only has ACD -->
-
+<!--
+Lead time: from request to deployment
+-->
 ---
 layout: default-aside
 ---
@@ -327,12 +313,10 @@ There are significant drawbacks & challenges
 
 ![](./images/no-silver-bullet-wooden.jpg)
 
-<!-- Interprocess: network latency, de(serialization) and server processing + potential packet loss/retries & network congestion
-gRPC: Google Remote Procedure Call
-AMQP: Advanced Message Queuing Protocol
-STOMP: Simple (or Streaming) Text Oriented Messaging Protocol
-One-to-many: with publish/subscribe -->
-
+<!--
+Complexity:
+What to do when the other system is down, unavailable or crashes?
+-->
 ---
 layout: default-aside
 ---
@@ -357,16 +341,6 @@ If you constantly need to make changes because of changes in other services
 ::image::
 
 ![](./images/no-silver-bullet-wooden.jpg)
-
-<!-- IDL: OpenApi Specification (from Swagger)
-Semantic Version: Major.Minor.Patch
-Often done: putting the major version in the url
-Put major in header,MIME type, ...
-Robustness Principle
-Be conservative in what you do, be liberal in what you accept
-Provide defaults for new request properties (that conserve the initial behavior)
-Ignore new response properties -->
-
 ---
 layout: quote-image
 ---
@@ -374,11 +348,6 @@ layout: quote-image
 ::image::
 
 ![](./images/meme-murder-mystery.jpg)
-
-<!-- REST levels:
-Level 2: GET, POST, PUT and Resources
-Level 3: HATEOS: GET returns urls for operations -->
-
 ---
 layout: default-aside
 ---
@@ -401,8 +370,9 @@ layout: default-aside
 
 ![](./images/loosely-coupled.jpg)
 
-<!-- Circuit Breakers: Netflix Hystrix, Polly -->
-
+<!--
+Internals are hidden: Information Hiding / Encapsulation at a higher level
+-->
 ---
 layout: default-aside
 ---
@@ -426,21 +396,21 @@ layout: default-aside
 
 ![](./images/obstacles-boulder.jpg)
 
-<!-- Default Value: if it's not that important
-Cached Response: if stale data is ok
-The client or frontend can maybe still work with partial data. -->
-
+<!--
+Chatty Services:
+To get Order + Consumer => 2 calls
+OR: /v1/order/5?expand=consumer => 1 call (less chatty)  or use GraphQL
+Synchronous Interprocess Communication:
+Reduced availability: if one service is down, you are down
+Synchronous API call?  Because you are waiting for it!
+ACID: Atomic, Consistent, Isolated, Durable
+MicroServices only has ACD
+-->
 ---
 layout: section
 ---
 
 # Interprocess Communication
-
-<!-- Dynamic URL:
-Auto-Scaling
-Failures  and auto-restarts
-(Rolling) Upgrades -->
-
 ---
 layout: default
 ---
@@ -459,8 +429,13 @@ layout: default
 
 </v-clicks>
 
-<!-- PPTX slide 18: no image in original -->
-
+<!--
+Interprocess: network latency, de(serialization) and server processing + potential packet loss/retries & network congestion
+gRPC: Google Remote Procedure Call
+AMQP: Advanced Message Queuing Protocol
+STOMP: Simple (or Streaming) Text Oriented Messaging Protocol
+One-to-many: with publish/subscribe
+-->
 ---
 layout: default
 ---
@@ -481,13 +456,19 @@ New incompatible version deployed becomes a runtime exception rather than a comp
 
 </v-clicks>
 
-<!-- Example: Netflix Eureka + Ribbon Http client, Pivotal Spring Cloud
-Platform provided: Docker & Kubernetes  The deployment system handles it -->
-
+<!--
+IDL: OpenApi Specification (from Swagger)
+Semantic Version: Major.Minor.Patch
+Often done: putting the major version in the url
+Put major in header,MIME type, …
+Robustness Principle
+Be conservative in what you do, be liberal in what you accept
+Provide defaults for new request properties (that conserve the initial behavior)
+Ignore new response properties
+-->
 ---
 layout: default
 ---
-
 # Interprocess Communication
 ## Defining APIs
 
@@ -500,9 +481,11 @@ Pattern: Proxy & Adapter
 
 </v-clicks>
 
-<!-- ActiveMQ, RabbitMQ, Kafka, AWS Kinesis, AWS SQS
-Events or Broadcasts -->
-
+<!--
+REST levels:
+Level 2: GET, POST, PUT and Resources
+Level 3: HATEOS: GET returns urls for operations
+-->
 ---
 layout: default-aside
 ---
@@ -524,10 +507,9 @@ A proxy that rejects invocations for x time after y consecutive failures
 
 ![](./images/circuit-breaker.jpg)
 
-<!-- Brokerless: (ex: ZeroMQ)
-Send messages directly from server to receiver
-Reduced availability: both sender and receiver need to be available -->
-
+<!--
+Circuit Breakers: Netflix Hystrix, Polly
+-->
 ---
 layout: default
 ---
@@ -545,10 +527,11 @@ layout: default
 
 Decide on a case per case basis...
 
-<!-- Competing capabilities: pick a broker that supports what you need
-Ordered delivery typically means increased latency
-Guaranteed delivery: Typically a broker promises to deliver a message at least once (receive, handle, crash before acknowledging handled) -->
-
+<!--
+Default Value: if it’s not that important
+Cached Response: if stale data is ok
+The client or frontend can maybe still work with partial data.
+-->
 ---
 layout: default
 ---
@@ -564,9 +547,12 @@ layout: default
 
 </v-clicks>
 
-<!-- Database Transaction Log Tailing:
-Debezium (Kafka), LinkedIn Databus, DynamoDB Streams, Eventuate Tram -->
-
+<!--
+Dynamic URL:
+Auto-Scaling
+Failures  and auto-restarts
+(Rolling) Upgrades
+-->
 ---
 layout: default
 ---
@@ -577,10 +563,6 @@ layout: default
 The solution, as so many times with MicroServices, is to... add another service
 
 **"Service Registry"**
-
-<!-- Replicate data:
-By subscribing to changed events. CQRS covered later on. -->
-
 ---
 layout: default-aside
 ---
@@ -603,13 +585,10 @@ layout: default-aside
 
 ![](./images/service-registry.jpg)
 
-<!-- Countermeasures:
-Implement countermeasures to prevent or reduce impact of concurrency anomalies
-Choreography:
-Participants of the saga exchange messages without central point of control
-Orchestration:
-Centralized controller tells participants what to do -->
-
+<!--
+Example: Netflix Eureka + Ribbon Http client, Pivotal Spring Cloud
+Platform provided: Docker & Kubernetes  The deployment system handles it
+-->
 ---
 layout: section
 ---
@@ -644,13 +623,10 @@ layout: default-aside
 
 ![](./images/message-broker.jpg)
 
-<!-- Basically an Anti-Pattern
-Data consistency anomalies:
-Lost updates: overwrite something from another saga
-Dirty reads: read half finished saga
-Non-repeatable reads: two steps of the saga see something different
-Reduced availability: all participants must be available! -->
-
+<!--
+ActiveMQ, RabbitMQ, Kafka, AWS Kinesis, AWS SQS
+Events or Broadcasts
+-->
 ---
 layout: default-aside
 ---
@@ -670,14 +646,11 @@ Brokerless Messaging:
 
 ![](./images/brokerless.jpg)
 
-<!-- For when things go wrong...
-Compensatable Transactions:
-Transactions that can be rolled back by compensating transactions
-Pivot Transactions:
-The go/no-go point of the sage (ex: payment)
-Retriable Transactions:
-After the pivot transaction, if one of these fails, we will try them again -->
-
+<!--
+Brokerless: (ex: ZeroMQ)
+Send messages directly from server to receiver
+Reduced availability: both sender and receiver need to be available
+-->
 ---
 layout: default
 ---
@@ -697,6 +670,11 @@ layout: default
 
 </v-clicks>
 
+<!--
+Competing capabilities: pick a broker that supports what you need
+Ordered delivery typically means increased latency
+Guaranteed delivery: Typically a broker promises to deliver a message at least once (receive, handle, crash before acknowledging handled)
+-->
 ---
 layout: default
 ---
@@ -717,6 +695,10 @@ Deliver AT LEAST ONCE? 😱😱😱
 
 </v-clicks>
 
+<!--
+Database Transaction Log Tailing:
+Debezium (Kafka), LinkedIn Databus, DynamoDB Streams, Eventuate Tram
+-->
 ---
 layout: default
 ---
@@ -734,6 +716,10 @@ Try to eliminate synchronous interactions
 
 </v-clicks>
 
+<!--
+Replicate data:
+By subscribing to changed events. CQRS covered later on.
+-->
 ---
 layout: default-aside
 ---
@@ -754,6 +740,14 @@ Saga: a message driven sequence of local transactions in order to maintain data 
 
 ![](./images/saga-warrior.jpg)
 
+<!--
+Countermeasures:
+Implement countermeasures to prevent or reduce impact of concurrency anomalies
+Choreography:
+Participants of the saga exchange messages without central point of control
+Orchestration:
+Centralized controller tells participants what to do
+-->
 ---
 layout: default
 ---
@@ -772,16 +766,14 @@ All participants commit or rollback
 - ⚠️ Reduced availability
 - ⚠️ Not supported by MongoDb, RabbitMQ, Kafka
 
-<!-- Transaction Script:
-If it's simple, keep it simple.
-Domain Model:
-Aggregates map to Services.
-Also here challenges: what does it mean to delete an entity? (Fuzzy Boundaries)
- We'll have DDD sessions 😀
-EventSourcing:
-A developer might forget to send an EntityUpdated event after processing his BL  Use EventSourcing to update aggregates instead!
- See our CQRS session! -->
-
+<!--
+Basically an Anti-Pattern
+Data consistency anomalies:
+Lost updates: overwrite something from another saga
+Dirty reads: read half finished saga
+Non-repeatable reads: two steps of the saga see something different
+Reduced availability: all participants must be available!
+-->
 ---
 layout: default-aside
 ---
@@ -804,6 +796,15 @@ Saga: each service commits
 
 ![](./images/saga-compensating.jpg)
 
+<!--
+For when things go wrong…
+Compensatable Transactions:
+Transactions that can be rolled back by compensating transactions
+Pivot Transactions:
+The go/no-go point of the sage (ex: payment)
+Retriable Transactions:
+After the pivot transaction, if one of these fails, we will try them again
+-->
 ---
 layout: default-aside
 ---
@@ -824,9 +825,6 @@ Saga: Choreography
 ::image::
 
 ![](./images/saga-choreography.jpg)
-
-<!-- Lead time: from request to deployment -->
-
 ---
 layout: default-aside
 ---
@@ -893,9 +891,17 @@ layout: default-aside
 
 ![](./images/business-logic.jpg)
 
-<!-- Example:
-Restaurant app & database does nor support geospatial datatypes (findAvailableRestaurants) -->
-
+<!--
+Transaction Script:
+If it’s simple, keep it simple.
+Domain Model:
+Aggregates map to Services.
+Also here challenges: what does it mean to delete an entity? (Fuzzy Boundaries)
+ We’ll have DDD sessions 😀
+EventSourcing:
+A developer might forget to send an EntityUpdated event after processing his BL  Use EventSourcing to update aggregates instead!
+ See our CQRS session!
+-->
 ---
 layout: default-aside
 ---
@@ -917,10 +923,6 @@ EntityUpdated events
 ::image::
 
 ![](./images/domain-events.jpg)
-
-<!-- Internal Admin App: High bandwidth LAN
-External Clients: Lower performing internet -->
-
 ---
 layout: default-aside
 ---
@@ -943,13 +945,6 @@ EntityUpdated events
 ::image::
 
 ![](./images/domain-events.jpg)
-
-<!-- Edge functions:
-Authentication, Authorization, Rate limiting, Caching, Metrics collection, Request logging
-Protocol translation: Internal service might use gRPC
-Depends on client: return less data for a mobile client
-Backends for frontends: Netflix Falcor -->
-
 ---
 layout: break
 ---
@@ -974,8 +969,9 @@ layout: quote-image
 
 ![](./images/comic-microservice-size.jpg)
 
-<!-- Off the shelf: Netflix Zuul, Traefik, Spring Cloud Gateway, AWS API Gateway, AWS Application Load Balancer -->
-
+<!--
+Lead time: from request to deployment
+-->
 ---
 layout: section
 ---
@@ -1005,9 +1001,6 @@ layout: two-col-image-text
 ::image::
 
 ![](./images/api-composition.jpg)
-
-<!-- Spring Security, Apache Shino, NodeJS Passport -->
-
 ---
 layout: default-aside
 ---
@@ -1028,11 +1021,10 @@ layout: default-aside
 
 ![](./images/cqrs-mirror.jpg)
 
-<!-- Push: using environment variables or files. Files: there are files everywhere.
-Pull: using git, a DB, Spring Cloud Config
-Sensitive data: Hashicorp Vault, AWS Parameter Store
-Pull is centralized, dynamic reconfiguration, transparent decryption, yet another service -->
-
+<!--
+Example:
+Restaurant app & database does nor support geospatial datatypes (findAvailableRestaurants)
+-->
 ---
 layout: section
 ---
@@ -1065,12 +1057,10 @@ Solution: **API Gateway**
 
 ![](./images/external-apis.jpg)
 
-<!-- Ex: HealthChecks.NET, Spring Boot Actuator
-Checked by: Docker, Kubernetes, Netflix Eureka
-More detailed:
-Do a db query
-Check external services are available -->
-
+<!--
+Internal Admin App: High bandwidth LAN
+External Clients: Lower performing internet
+-->
 ---
 layout: default-aside
 ---
@@ -1093,10 +1083,13 @@ layout: default-aside
 
 ![](./images/api-gateway.jpg)
 
-<!-- You don't want to go checking log files on different servers
-Application Metrics: Heartbeats & Prometheus
-Exception Tracking: de-duplicate exceptions. Alerting with for example Sentry.IO -->
-
+<!--
+Edge functions:
+Authentication, Authorization, Rate limiting, Caching, Metrics collection, Request logging
+Protocol translation: Internal service might use gRPC
+Depends on client: return less data for a mobile client
+Backends for frontends: Netflix Falcor
+-->
 ---
 layout: default-aside
 ---
@@ -1113,6 +1106,9 @@ layout: default-aside
 
 ![](./images/api-gateway.jpg)
 
+<!--
+Off the shelf: Netflix Zuul, Traefik, Spring Cloud Gateway, AWS API Gateway, AWS Application Load Balancer
+-->
 ---
 layout: section
 ---
@@ -1140,10 +1136,6 @@ layout: default-aside
 ::image::
 
 ![](./images/production-ready.jpg)
-
-<!-- Chassis: GoKit, Micro
-Mesh: Istio, Conduit, Linkerd -->
-
 ---
 layout: default-aside
 ---
@@ -1165,6 +1157,9 @@ layout: default-aside
 
 ![](./images/security-key.jpg)
 
+<!--
+Spring Security, Apache Shino, NodeJS Passport
+-->
 ---
 layout: default-aside
 ---
@@ -1186,6 +1181,12 @@ layout: default-aside
 
 ![](./images/configurability.jpg)
 
+<!--
+Push: using environment variables or files. Files: there are files everywhere.
+Pull: using git, a DB, Spring Cloud Config
+Sensitive data: Hashicorp Vault, AWS Parameter Store
+Pull is centralized, dynamic reconfiguration, transparent decryption, yet another service
+-->
 ---
 layout: default-aside
 ---
@@ -1207,8 +1208,13 @@ layout: default-aside
 
 ![](./images/observability-eye.jpg)
 
-<!-- Elastic Beanstalk, Packer for VirtualBox, VMWare, Aminator, ... -->
-
+<!--
+Ex: HealthChecks.NET, Spring Boot Actuator
+Checked by: Docker, Kubernetes, Netflix Eureka
+More detailed:
+Do a db query
+Check external services are available
+-->
 ---
 layout: default-aside
 ---
@@ -1232,9 +1238,11 @@ layout: default-aside
 
 ![](./images/log-aggregation.jpg)
 
-<!-- Ex: Docker, Podman
-Registry: Docker Cloud Registry, AWS EC2 Container Registry -->
-
+<!--
+You don’t want to go checking log files on different servers
+Application Metrics: Heartbeats & Prometheus
+Exception Tracking: de-duplicate exceptions. Alerting with for example Sentry.IO
+-->
 ---
 layout: default
 disabled: true
@@ -1263,11 +1271,6 @@ Circuit Breaker, Tracing, Logging, Service Discovery, Health checks, Configurati
 ::image::
 
 ![](./images/one-million-microservices.jpg)
-
-<!-- Service Mesh: Separate deployment from release
-Deploy, test and only then release
-Maybe next Architecture/Cloud sessions on Kubernetes... -->
-
 ---
 layout: default-aside
 ---
@@ -1287,9 +1290,10 @@ layout: default-aside
 
 ![](./images/chassis.jpg)
 
-<!-- AWS Lambda, Azure Functions
-Long running processes: don't put a message handler on serverless -->
-
+<!--
+Chassis: GoKit, Micro
+Mesh: Istio, Conduit, Linkerd
+-->
 ---
 layout: section
 ---
@@ -1353,6 +1357,9 @@ Ship the whole thing: OS, Dependencies & App
 - ⚠️ Must maintain the machines (patches & updates)
 - ⚠️ Might be paying for lots of unused resources
 
+<!--
+Elastic Beanstalk, Packer for VirtualBox, VMWare, Aminator, …
+-->
 ---
 layout: default
 ---
@@ -1367,6 +1374,10 @@ Build image, push to registry, start container
 - ✅ More lightweight than a VM
 - ⚠️ You're responsible for the Image administration
 
+<!--
+Ex: Docker, Podman
+Registry: Docker Cloud Registry, AWS EC2 Container Registry
+-->
 ---
 layout: default
 ---
@@ -1390,6 +1401,11 @@ Scheduling: Checks service requirements to select a machine
 
 (Anti)-Affinity: services to (not) run on the same machine
 
+<!--
+Service Mesh: Separate deployment from release
+Deploy, test and only then release
+Maybe next Architecture/Cloud sessions on Kubernetes…
+-->
 ---
 layout: default
 ---
@@ -1403,6 +1419,10 @@ layout: default
 - ⚠️ Cold startup
 - ⚠️ Not intended for long running processes
 
+<!--
+AWS Lambda, Azure Functions
+Long running processes: don’t put a message handler on serverless
+-->
 ---
 layout: section
 ---
@@ -1435,14 +1455,6 @@ Don't!
 ::image::
 
 ![](./images/refactoring.jpg)
-
-<!-- Rewrite:
-Moving target
-Or no more delivery for a long time
-High value areas:
-Can demo benefit to the business quickly
-Extract a service on an area that is actively being developer -->
-
 ---
 layout: default-aside
 ---
@@ -1455,13 +1467,6 @@ If you find yourself in a hole, stop digging
 ::image::
 
 ![](./images/stop-digging.jpg)
-
-<!-- Move data: to the new services
-Replicate: and make the monolith data read-only
-Or: Write new features as services
-Or: Focus o
-Timebox service architectures. -->
-
 ---
 layout: default-aside
 ---
@@ -1484,9 +1489,14 @@ Strangle the monolith
 
 ![](./images/strangle-monolith.jpg)
 
-<!-- API Gateway: Route to monolith or a MicroService
-Glue Code: Messaging or Invoke REST APIs from the Monolith -->
-
+<!--
+Rewrite:
+Moving target
+Or no more delivery for a long time
+High value areas:
+Can demo benefit to the business quickly
+Extract a service on an area that is actively being developer
+-->
 ---
 layout: default-aside
 ---
@@ -1510,6 +1520,13 @@ layout: default-aside
 
 ![](./images/strangle-monolith.jpg)
 
+<!--
+Move data: to the new services
+Replicate: and make the monolith data read-only
+Or: Write new features as services
+Or: Focus o
+Timebox service architectures.
+-->
 ---
 layout: default-aside
 ---
@@ -1531,6 +1548,10 @@ Minimize changes to the monolith
 
 ![](./images/strangle-monolith.jpg)
 
+<!--
+API Gateway: Route to monolith or a MicroService
+Glue Code: Messaging or Invoke REST APIs from the Monolith
+-->
 ---
 layout: end
 ---
