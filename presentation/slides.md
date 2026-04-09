@@ -660,7 +660,9 @@ A proxy that rejects invocations for x time after y consecutive failures
 ![](./images/circuit-breaker.jpg)
 
 <!--
-**Circuit Breakers**: Netflix Hystrix, Polly
+**Circuit Breakers**:
+- Polly (.NET), Resilience4J (Java)
+- In service mesh setups, often pushed into the mesh itself (Istio/Envoy)
 -->
 
 ---
@@ -766,21 +768,22 @@ layout: default
 
 <v-clicks depth="2">
 
-- Self-Registration
-  - A service registers itself + health check & heartbeat
-- Client-Side Discovery
-  - Query the Service Registry + cache
-  - + Load balancing
-- Prefer a platform-provided solution
+- Platform-provided solutions
+  - Kubernetes: Services + CoreDNS -- pods resolve `payment-service` automatically
+  - AWS: Cloud Map / ALB target groups
+  - Consul: for hybrid / non-K8s environments
+- Legacy patterns
+  - Self-Registration -- service registers itself + heartbeat
+  - Client-Side Discovery -- every client queries the registry and load-balances
 
 </v-clicks>
 
-
 <!--
-Example: Netflix Eureka + Ribbon Http client, Pivotal Spring Cloud
-
-Platform provided: Docker & Kubernetes -> The deployment system handles it
+- Audience may have inherited self-registration code from a 2017 codebase
+- Kubernetes Services made client-side discovery obsolete around 2018
+- Eureka/Ribbon = the canonical legacy example, now in maintenance
 -->
+
 ---
 layout: section
 ---
@@ -1483,7 +1486,7 @@ layout: default-aside
 
 <!--
 Ex: HealthChecks.NET, Spring Boot Actuator  
-Checked by: Docker, Kubernetes, Netflix Eureka
+Checked by: Docker, Kubernetes
 
 More detailed:  
 - Do a db query
