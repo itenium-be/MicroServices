@@ -489,6 +489,44 @@ Be conservative in what you do, be liberal in what you accept
 
 ---
 layout: default
+textSize: sm
+---
+
+# Interprocess Communication
+## Don't Break Your Consumers
+
+<div class="text-center text-primary">
+
+Versioning is a strategy. **Verification** is what catches the bugs.
+
+</div>
+
+<v-clicks depth="2" class="mt-8">
+
+- Schema Registry (for events)
+  - Producers register schemas; consumers fetch them
+  - Reject incompatible changes at publish time, not at runtime
+  - Confluent Schema Registry, Apicurio, AWS Glue Schema Registry
+- Consumer-Driven Contract Testing (for APIs)
+  - Consumers publish a contract: *"I call your endpoint like THIS"*
+  - Producer's CI runs those contracts against every build
+  - Pact, Spring Cloud Contract
+- ✅ Breaking changes fail in CI, not in production at 3 AM
+
+</v-clicks>
+
+<!--
+**Why this is the missing piece**: semver tells you a version is breaking. It does not tell you WHICH consumers break. Schema registry + contract tests close that loop.
+
+**Schema Registry compatibility modes**: BACKWARD (new schema can read old data), FORWARD (old schema can read new data), FULL (both). Pick BACKWARD for events that have long-lived consumers.
+
+**Pact in practice**: consumer team writes a test that says "when I call /orders/123, I expect a response with at least these fields". Pact runs this test in mock mode in the consumer's CI, and in real mode against the producer's CI. Both sides know immediately when the contract drifts.
+
+**Connects to the previous slide**: the Robustness Principle is good advice but it's hope-driven. Contract tests are evidence-driven.
+-->
+
+---
+layout: default
 ---
 # Interprocess Communication
 ## Defining APIs
