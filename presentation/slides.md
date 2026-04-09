@@ -103,6 +103,19 @@ layout: default-aside
 ![](./images/patterns-decorative.jpg)
 
 ---
+layout: statement
+---
+
+You probably shouldn't do this
+
+::author::
+
+Most teams would be better off with a well-built monolith.
+
+This talk is for the teams that have decided otherwise.
+
+
+---
 layout: section
 ---
 
