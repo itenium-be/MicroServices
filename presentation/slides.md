@@ -532,6 +532,33 @@ A proxy that rejects invocations for x time after y consecutive failures
 <!--
 **Circuit Breakers**: Netflix Hystrix, Polly
 -->
+
+---
+layout: default
+---
+
+# Interprocess Communication
+## Retries & Idempotency
+
+A failed call might have succeeded -- the response just got lost
+
+<v-clicks depth="2">
+
+- Retries are only safe if the operation is **idempotent**
+  - GET, PUT, DELETE: idempotent by HTTP spec
+  - POST: not -- and most business operations are POST
+- Pattern: `Idempotency-Key` header (Stripe)
+  - Client generates a UUID per logical operation
+  - Server stores `(key → response)` and returns cache on retry
+
+</v-clicks>
+
+<!--
+**Why this matters**: the network can fail AFTER the server processed the request but BEFORE the response reaches the client. The client doesn't know if the charge went through. Without idempotency, retrying double-charges the customer.
+
+**Stripe popularized this**: now used by Shopify, Square, GitHub, AWS, PayPal. The key is stored server-side for ~24h; same key + same payload = cached response.
+-->
+
 ---
 layout: default
 ---
