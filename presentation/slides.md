@@ -265,6 +265,7 @@ textSize: xl
 <!--
 Each service can be X & Z scaled
 -->
+
 ---
 layout: default-aside
 textSize: xl
@@ -290,6 +291,8 @@ textSize: xl
 <!--
 **Lead time**: from request to deployment
 -->
+
+
 ---
 layout: default-aside
 ---
@@ -298,7 +301,7 @@ layout: default-aside
 
 There are significant drawbacks & challenges
 
-<v-clicks>
+<v-clicks depth="2">
 
 - Finding the right services is challenging
 - Distributed systems are complex
@@ -315,8 +318,7 @@ There are significant drawbacks & challenges
 ![](./images/no-silver-bullet-wooden.jpg)
 
 <!--
-**Complexity**:
-
+**Complexity**:  
 What to do when the other system is down, unavailable or crashes?
 -->
 ---
@@ -325,13 +327,16 @@ layout: default-aside
 
 # No Silver Bullet
 
-There are significant drawbacks & challenges
+## There are significant drawbacks & challenges
 
+<v-clicks>
 If you need to collaborate with different teams for the smallest of changes
 
 If you constantly need to make changes because of changes in other services
 
 **You have just built yourself a distributed monolith**
+
+</v-clicks>
 
 <v-clicks>
 
@@ -399,20 +404,15 @@ layout: default-aside
 ![](./images/obstacles-boulder.jpg)
 
 <!--
-**Chatty Services**:
-
-To get Order + Consumer => 2 calls
-
-OR: /v1/order/5?expand=consumer => 1 call (less chatty)  or use GraphQL
+**Chatty Services**:  
+To get Order + Consumer => 2 calls  
+OR: /v1/order/5?expand=consumer => 1 call (less chatty) -> or use GraphQL
 
 **Synchronous Interprocess Communication**:
+- Reduced availability: if one service is down, you are down
+- Synchronous API call? -> Because you are waiting for it!
 
-Reduced availability: if one service is down, you are down
-
-Synchronous API call?  Because you are waiting for it!
-
-ACID: Atomic, Consistent, Isolated, Durable
-
+**ACID**: Atomic, Consistent, Isolated, Durable  
 MicroServices only has ACD
 -->
 ---
@@ -426,7 +426,7 @@ layout: default
 
 # Interprocess Communication
 
-<v-clicks>
+<v-clicks depth="2">
 
 - Monolith: in process calls (<1ms)
 - MicroServices: interprocess (10-500ms)
@@ -441,10 +441,8 @@ layout: default
 <!--
 **Interprocess**: network latency, de(serialization) and server processing + potential packet loss/retries & network congestion
 
-gRPC: Google Remote Procedure Call
-
-AMQP: Advanced Message Queuing Protocol
-
+gRPC: Google Remote Procedure Call  
+AMQP: Advanced Message Queuing Protocol  
 STOMP: Simple (or Streaming) Text Oriented Messaging Protocol
 
 **One-to-many**: with publish/subscribe
