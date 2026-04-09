@@ -1661,6 +1661,16 @@ Minimize changes to the monolith
 **Glue Code**: Messaging or Invoke REST APIs from the Monolith
 -->
 ---
+layout: quote-image
+---
+
+# The End
+
+::image::
+
+![](./images/dilbert-cloud-native.jpg)
+
+---
 layout: end
 ---
 
