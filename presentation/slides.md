@@ -1539,18 +1539,25 @@ layout: quote-image
 ::image::
 
 ![](./images/one-million-microservices.jpg)
+
 ---
 layout: default-aside
+textSize: sm
 ---
 
 # Production Ready
 
 <v-clicks>
 
-- Pattern: MicroService Chassis
-  - Combine all cross-cutting concerns
-- Pattern: Service Mesh
-  - Route all traffic through a layer that does the chassis stuff + load balancing, routing, ...
+- Pattern: **MicroService Chassis**
+  - In-process library that handles cross-cutting concerns
+- Pattern: **Sidecar**
+  - Cross-cutting concerns in a co-deployed process, not in your code
+  - Language-agnostic -- your service stays simple
+- Pattern: **Service Mesh**
+  - Sidecars + a control plane: routing, mTLS, retries, observability
+  - ⚠️ Operational tax: extra container per pod, latency, control plane to learn
+  - ⚠️ Sidecar fatigue → "ambient mesh" (Istio Ambient, Cilium) is the 2026 trend
 
 </v-clicks>
 
@@ -1560,7 +1567,9 @@ layout: default-aside
 
 <!--
 **Chassis**: GoKit, Micro  
-**Mesh**: Istio, Conduit, Linkerd
+**Sidecar**: Dapr is the dev-friendly one (state, pub/sub, secrets via local HTTP)  
+**Mesh**: Istio, Linkerd
+- Ambient mesh = sidecarless, the new direction
 -->
 ---
 layout: section
