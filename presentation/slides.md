@@ -358,17 +358,17 @@ layout: default-aside
 
 # No Silver Bullet
 
-## There are significant drawbacks & challenges
+## Hard Even When You Do It Right
 
 <v-clicks depth="2">
 
-- Finding the right services is challenging
+- Finding the right service boundaries is challenging
 - Distributed systems are complex
   - Other services are down or unavailable
   - Deployment needs coordination
   - Writing tests spanning multiple services
   - Additional operational complexity
-- What about cross-cutting concerns
+- Cross-cutting concerns multiply across services
 
 </v-clicks>
 
