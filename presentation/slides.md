@@ -57,12 +57,15 @@ disabled: true
 
 ---
 layout: two-col-image-text
-image: ./images/book-microservices-patterns.jpg
 ---
 
 # Microservices Patterns
 
 ## Tis een halve boekbespreking
+
+::image::
+
+![](./images/book-microservices-patterns.jpg)
 
 ::content::
 
