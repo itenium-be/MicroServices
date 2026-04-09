@@ -1022,23 +1022,34 @@ layout: default-aside
 ---
 
 # Business Logic
-## Domain Events
-
-EntityUpdated events
+## Domain Events: Notification vs State Transfer
 
 <v-clicks depth="2">
 
-- ID Only
-  - ✅ Small messages
-  - ⚠️ Consumers need to request
-- Enrichment
-  - ⚠️ Less stable events
+- **Event Notification** (ID only)
+  - `OrderPlaced { orderId: 123 }`
+  - ✅ Small messages, stable schema
+  - ⚠️ Consumers call back to fetch details (chatty, coupling)
+- **Event-Carried State Transfer** (enriched)
+  - `OrderPlaced { orderId, customer, lineItems, total }`
+  - ✅ Consumers are autonomous, can work offline
+  - ⚠️ Larger messages, schema changes ripple to all consumers
+  - ⚠️ Stale data risk
 
 </v-clicks>
 
 ::image::
 
 ![](./images/domain-events.jpg)
+
+<!--
+**Martin Fowler's terminology** -- both are valid; pick per event based on consumer needs.
+
+Notification when one consumer needs full data → it fetches once.
+State transfer when many consumers need a slice → broadcast it so they don't all hammer the producer.
+
+In practice most systems mix both: lightweight notifications for high-frequency events, enriched events for the handful that everyone cares about.
+-->
 ---
 layout: break
 ---
