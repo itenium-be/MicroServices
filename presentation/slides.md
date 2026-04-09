@@ -60,25 +60,23 @@ disabled: true
 
 ---
 layout: two-col-image-text
+image: ./images/book-microservices-patterns.jpg
 ---
 
 # Microservices Patterns
 
 ## Tis een halve boekbespreking
 
+::content::
+
 <v-clicks depth="2">
 
 - With examples in Java
 - 470 pages on everything MicroServices
 - By Chris Richardson: microservices.io
+- Describes a collection of Patterns
 
 </v-clicks>
-
-Describes a collection of Patterns
-
-::image::
-
-![](./images/book-microservices-patterns.jpg)
 
 <!-- Each service can be X & Z scaled -->
 
@@ -136,7 +134,9 @@ layout: default-aside
 
 </v-clicks>
 
+<div v-click class="text-center italic mt-8 text-primary">
 Typically a good top level architecture to start with
+</div>
 
 ::image::
 
@@ -222,7 +222,7 @@ layout: two-col-image-text
 
 # The Scale Cube
 
-Scaling may turn out to be not that easy (anymore)
+## Scaling may turn out to be not that easy (anymore)
 
 ::image::
 
@@ -250,6 +250,7 @@ So... MicroServices?
 
 ---
 layout: default-aside
+textSize: xl
 ---
 
 # So... MicroServices?
@@ -273,6 +274,7 @@ layout: default-aside
 
 ---
 layout: default-aside
+textSize: xl
 ---
 
 # How Micro is a MicroService?
