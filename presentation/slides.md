@@ -1108,7 +1108,7 @@ Saga: Orchestration
 <v-clicks>
 
 ✅ Easy to test
-<br>✅ Recommended
+<br>✅ **Use when**: ≥3 participants, complex compensation, or long-running flows
 
 </v-clicks>
 
