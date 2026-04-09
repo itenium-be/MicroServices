@@ -3,9 +3,12 @@
   "scripts": {
     "dev": "slidev",
     "build": "slidev build --base /2024-10-17-MicroServices/",
-    "export": "slidev export --format pdf"
+    "export": "slidev export --format pptx --output ../MicroServices.pptx"
   },
   "dependencies": {
     "@slidev/cli": "^51.0.0"
+  },
+  "devDependencies": {
+    "playwright-chromium": "^1.49.1"
   }
 }
