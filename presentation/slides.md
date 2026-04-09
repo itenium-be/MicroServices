@@ -432,6 +432,37 @@ layout: default-aside
 **Internals are hidden**: Information Hiding / Encapsulation at a higher level
 -->
 ---
+layout: default
+---
+
+# Database per Service
+
+The hard part of microservices isn't the services. It's the data.
+
+<v-clicks>
+
+- ❌ No `JOIN` across service boundaries
+- ❌ No foreign keys across service boundaries
+- ❌ No distributed transactions (in practice)
+- ❌ No "single source of truth" -- every service owns its slice
+- ⚠️ Eventual consistency is now your default
+
+</v-clicks>
+
+<div v-click class="text-center text-primary mt-10">
+
+This is why we need:
+<br>**Sagas**, **CQRS**, **Outbox**, **Event-driven sync**
+
+</div>
+
+<!--
+- The data slide nobody plans for
+- Every later pattern (saga, CQRS, outbox) exists because of these constraints
+- "Shared DB" = #1 distributed monolith symptom from previous slide
+-->
+
+---
 layout: default-aside
 ---
 
