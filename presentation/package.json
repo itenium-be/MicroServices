@@ -3,7 +3,7 @@
   "scripts": {
     "dev": "slidev",
     "build": "slidev build --base /2024-10-17-MicroServices/",
-    "export": "slidev export --format pptx --output ../MicroServices.pptx"
+    "export": "slidev export --format pptx --output ../MicroServices.pptx --with-clicks=false"
   },
   "dependencies": {
     "@slidev/cli": "^51.0.0"
