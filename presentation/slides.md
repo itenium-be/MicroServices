@@ -1724,7 +1724,7 @@ layout: default-aside
 # Refactoring
 ## Moving to MicroServices
 
-Strangle the monolith
+Pattern: **Strangler Fig** (Fowler)
 
 <v-clicks>
 
