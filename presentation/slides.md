@@ -1035,24 +1035,23 @@ layout: section
 # Queries
 
 ---
-layout: two-col-image-text
+layout: default-aside
 ---
 
 # Queries
 ## Pattern: API Composition
 
-<v-clicks>
+<v-clicks depth="2">
 
 - Query multiple services and combine the results
-
-</v-clicks>
-
 - ✅ Easy to implement
 - ⚠️ Network and computing overhead
 - ⚠️ Lack of transactional data consistency
 - ⚠️ Reduced availability
   - Cached fallbacks
   - Return incomplete data
+
+</v-clicks>
 
 ::image::
 
@@ -1108,15 +1107,18 @@ Don't expose the microservices
 
 </v-clicks>
 
+<div v-click class="text-center italic mt-16 accent">
+
 Solution: **API Gateway**
+
+</div>
 
 ::image::
 
 ![](./images/external-apis.jpg)
 
 <!--
-**Internal Admin App**: High bandwidth LAN
-
+**Internal Admin App**: High bandwidth LAN  
 **External Clients**: Lower performing internet
 -->
 ---
@@ -1142,8 +1144,7 @@ layout: default-aside
 ![](./images/api-gateway.jpg)
 
 <!--
-**Edge functions**:
-
+**Edge functions**:  
 Authentication, Authorization, Rate limiting, Caching, Metrics collection, Request logging
 
 **Protocol translation**: Internal service might use gRPC
@@ -1159,10 +1160,15 @@ layout: default-aside
 # External APIs
 ## API Gateway
 
+
+<v-clicks>
+
 - Handle partial failures
 - Uses Service Discovery Patterns
 - Potential bottleneck
 - Off the shelf or GraphQL
+
+</v-clicks>
 
 ::image::
 
@@ -1229,7 +1235,7 @@ layout: default-aside
 # Production Ready
 ## Configurability
 
-<v-clicks>
+<v-clicks depth="2">
 
 - Externalized Configuration
   - Push Model
@@ -1244,10 +1250,8 @@ layout: default-aside
 ![](./images/configurability.jpg)
 
 <!--
-**Push:** using environment variables or files. Files: there are files everywhere.
-
-**Pull**: using git, a DB, Spring Cloud Config
-
+**Push:** using environment variables or files. Files: there are files everywhere.  
+**Pull**: using git, a DB, Spring Cloud Config  
 **Sensitive data**: Hashicorp Vault, AWS Parameter Store
 
 Pull is centralized, dynamic reconfiguration, transparent decryption, yet another service
@@ -1274,15 +1278,12 @@ layout: default-aside
 ![](./images/observability-eye.jpg)
 
 <!--
-Ex: HealthChecks.NET, Spring Boot Actuator
-
+Ex: HealthChecks.NET, Spring Boot Actuator  
 Checked by: Docker, Kubernetes, Netflix Eureka
 
-More detailed:
-
-Do a db query
-
-Check external services are available
+More detailed:  
+- Do a db query
+- Check external services are available
 -->
 ---
 layout: default-aside
@@ -1337,7 +1338,7 @@ layout: quote-image
 
 # Cross-Cutting Concerns
 
-Circuit Breaker, Tracing, Logging, Service Discovery, Health checks, Configuration, ...
+## Circuit Breaker, Tracing, Logging, Service Discovery, Health checks, Configuration, ...
 
 ::image::
 
@@ -1362,8 +1363,7 @@ layout: default-aside
 ![](./images/chassis.jpg)
 
 <!--
-**Chassis**: GoKit, Micro
-
+**Chassis**: GoKit, Micro  
 **Mesh**: Istio, Conduit, Linkerd
 -->
 ---
@@ -1381,10 +1381,13 @@ layout: default-aside
 ---
 
 # Deployment
+## It needs to be highly automated
 
 Deploying a million services manually is not feasible
 
+<v-click>
 DevOps Teams
+</v-click>
 
 <v-clicks>
 
@@ -1406,12 +1409,16 @@ layout: default
 
 Copy the code & start
 
+<v-clicks>
+
 - ✅ Easy & fast
 - ✅ Good way to get started
 - ⚠️ Different versions of .NET / SDK
 - ⚠️ Service crashes on same machine can impact others
 - ⚠️ A service can utilize all CPU
 - ⚠️ Manually decide on what machines to put which services
+
+</v-clicks>
 
 ---
 layout: default
@@ -1422,12 +1429,16 @@ layout: default
 
 Ship the whole thing: OS, Dependencies & App
 
+<v-clicks>
+
 - ✅ Got everything & the right versions too!
 - ✅ Fixed amount of CPU & memory
 - ⚠️ Overhead of an entire OS
 - ⚠️ Slower: need to send a lot of bytes
 - ⚠️ Must maintain the machines (patches & updates)
 - ⚠️ Might be paying for lots of unused resources
+
+</v-clicks>
 
 <!--
 Elastic Beanstalk, Packer for VirtualBox, VMWare, Aminator, …
@@ -1441,10 +1452,14 @@ layout: default
 
 Build image, push to registry, start container
 
+<v-clicks>
+
 - ✅ Isolated
 - ✅ Can specify CPU & Memory
 - ✅ More lightweight than a VM
 - ⚠️ You're responsible for the Image administration
+
+</v-clicks>
 
 <!--
 Ex: Docker, Podman
@@ -1460,7 +1475,11 @@ layout: default
 
 Docker Orchestration: uses a set of machines with Docker as a pool of resources as if it were a single machine.
 
+<v-click>
+
 Service Management: named & versioned services
+
+</v-click>
 
 <v-clicks>
 
@@ -1470,9 +1489,13 @@ Service Management: named & versioned services
 
 </v-clicks>
 
+<v-click>
+
 Scheduling: Checks service requirements to select a machine
 
 (Anti)-Affinity: services to (not) run on the same machine
+
+</v-click>
 
 <!--
 **Service Mesh**: Separate deployment from release
@@ -1488,11 +1511,15 @@ layout: default
 # Deployment
 ## Serverless
 
+<v-clicks>
+
 - ✅ Only pay for what you use
 - ✅ Eliminate sysadmin tasks
 - ✅ Elasticity: spin up as needed to handle the load
 - ⚠️ Cold startup
 - ⚠️ Not intended for long running processes
+
+</v-clicks>
 
 <!--
 AWS Lambda, Azure Functions
@@ -1521,10 +1548,10 @@ Don't!
 <v-clicks>
 
 - Slow Delivery & Deployment?
-  - → Automated testing!
+  <br>→ Automated testing!
 - Poor Scalability?
-  - → Scale Cube!
-  - → First try simpler solutions!
+  <br>→ Scale Cube!
+- First try simpler solutions!
 
 </v-clicks>
 
@@ -1538,7 +1565,9 @@ layout: default-aside
 # Refactoring
 ## When to move to MicroServices
 
-If you find yourself in a hole, stop digging
+<div class="text-center text-xxl text-primary mt-45">
+If you find yourself in a hole,<br>stop digging
+</div>
 
 ::image::
 
@@ -1566,17 +1595,13 @@ Strangle the monolith
 ![](./images/strangle-monolith.jpg)
 
 <!--
-**Rewrite**:
-
-Moving target
-
-Or no more delivery for a long time
+**Rewrite**:  
+- Moving target
+- Or no more delivery for a long time
 
 **High value areas**:
-
-Can demo benefit to the business quickly
-
-Extract a service on an area that is actively being developer
+- Can demo benefit to the business quickly
+- Extract a service on an area that is actively being developer
 -->
 ---
 layout: default-aside
@@ -1585,7 +1610,7 @@ layout: default-aside
 # Refactoring
 ## Moving to MicroServices
 
-<v-clicks>
+<v-clicks depth="2">
 
 - Split the UI
 - Splitting the domain
@@ -1602,13 +1627,10 @@ layout: default-aside
 ![](./images/strangle-monolith.jpg)
 
 <!--
-**Move data**: to the new services
-
+**Move data**: to the new services  
 **Replicate**: and make the monolith data read-only
 
-Or: Write new features as services
-
-Or: Focus o
+Or: Write new features as services  
 
 Timebox service architectures.
 -->
