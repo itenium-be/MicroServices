@@ -836,6 +836,7 @@ Send messages directly from server to receiver
 -->
 ---
 layout: default
+textSize: sm
 ---
 
 # Interprocess Communication
@@ -849,6 +850,10 @@ layout: default
 - Durability: receive missed messages after service restart
 - Competing consumers
 - Guaranteed delivery: **deliver at least once**
+- Backpressure: what happens when consumers can't keep up?
+  - Kafka: consumer lag (broker keeps the data)
+  - RabbitMQ: prefetch limits + queue length thresholds
+  - SQS: visibility timeout + DLQ
 
 </v-clicks>
 
@@ -858,7 +863,16 @@ layout: default
 Ordered delivery typically means increased latency
 
 Guaranteed delivery: Typically a broker promises to deliver a message at least once (receive, handle, crash before acknowledging handled)
+
+**Backpressure**:
+- Async doesn't *solve* slow consumers, it *moves* the failure mode to "queue grows forever"
+- Backpressure: feedback from consumer -> broker -> producer (slow down my man!)
+- Kafka: monitor lag, alert on it, scale consumers horizontally
+- RabbitMQ prefetch too high → consumer OOM
+- SQS DLQ (Dead Letter Queue) fills silently if nobody watches it
+- Every async outage eventually traces back to one of these
 -->
+
 ---
 layout: default
 textSize: sm
