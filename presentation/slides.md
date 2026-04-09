@@ -345,7 +345,7 @@ layout: default-aside
 
 # No Silver Bullet
 
-There are significant drawbacks & challenges
+## There are significant drawbacks & challenges
 
 <v-clicks depth="2">
 
@@ -371,29 +371,34 @@ What to do when the other system is down, unavailable or crashes?
 layout: default-aside
 ---
 
-# No Silver Bullet
+# The Distributed Monolith
 
-## There are significant drawbacks & challenges
-
-<v-clicks>
-If you need to collaborate with different teams for the smallest of changes
-
-If you constantly need to make changes because of changes in other services
-
-**You have just built yourself a distributed monolith**
-
-</v-clicks>
+## All of the drawbacks. None of the benefits.
 
 <v-clicks>
 
-- All of the drawbacks
-- None of the benefits
+- You collaborate with three teams to ship a one-line change
+- A bug in service A forces a redeploy of services B, C, D
+- Your "independent" services share a database schema
+- Releases are coordinated across a release train
+- Your test environment requires all 40 services running
 
 </v-clicks>
+
+<div v-click class="text-center text-primary mt-5">
+Congratulations, you built a monolith with extra network calls
+</div>
 
 ::image::
 
 ![](./images/no-silver-bullet-wooden.jpg)
+
+<!--
+- Any 3 of 5 = you're here
+- Strictly worse than the monolith you started with
+- Escape hatch: own your data, own your release cycle, version your APIs, kill the shared DB
+- All four covered later in the talk
+-->
 ---
 layout: quote-image
 ---
