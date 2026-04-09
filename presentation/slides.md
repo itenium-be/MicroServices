@@ -591,11 +591,9 @@ The solution, as so many times with MicroServices,
 "Service Registry"
 </div>
 
-<v-click>
-
-![](./images/service-registry.jpg)
-
-</v-click>
+<div v-click class="absolute inset-0 flex items-center justify-center pointer-events-none">
+  <img src="./images/service-registry.jpg" class="max-h-96 max-w-2xl shadow-xl" />
+</div>
 
 ---
 layout: default
@@ -619,7 +617,7 @@ layout: default
 <!--
 Example: Netflix Eureka + Ribbon Http client, Pivotal Spring Cloud
 
-Platform provided: Docker & Kubernetes  The deployment system handles it
+Platform provided: Docker & Kubernetes -> The deployment system handles it
 -->
 ---
 layout: section
@@ -693,7 +691,7 @@ layout: default
 # Interprocess Communication
 ## Asynchronous Messaging
 
-<v-clicks>
+<v-clicks depth="2">
 
 - Competing Message Broker Capabilities
   - Language support
@@ -721,7 +719,7 @@ layout: default
 
 Deliver AT LEAST ONCE? 😱😱😱
 
-<v-clicks>
+<v-clicks depth="2">
 
 - Write idempotent message handlers
 - Track messages and discard duplicates
@@ -733,8 +731,7 @@ Deliver AT LEAST ONCE? 😱😱😱
 </v-clicks>
 
 <!--
-**Database Transaction Log Tailing:**
-
+**Database Transaction Log Tailing:**  
 Debezium (Kafka), LinkedIn Databus, DynamoDB Streams, Eventuate Tram
 -->
 ---
@@ -755,8 +752,7 @@ Try to eliminate synchronous interactions
 </v-clicks>
 
 <!--
-**Replicate data**:
-
+**Replicate data**:  
 By subscribing to changed events. CQRS covered later on.
 -->
 ---
@@ -780,16 +776,13 @@ Saga: a message driven sequence of local transactions in order to maintain data 
 ![](./images/saga-warrior.jpg)
 
 <!--
-**Countermeasures**:
-
+**Countermeasures**:  
 Implement countermeasures to prevent or reduce impact of concurrency anomalies
 
-**Choreography**:
-
+**Choreography**:  
 Participants of the saga exchange messages without central point of control
 
-**Orchestration**:
-
+**Orchestration**:  
 Centralized controller tells participants what to do
 -->
 ---
@@ -805,21 +798,22 @@ X/Open XA: Two-phase commit (2PC)
 
 All participants commit or rollback
 
+<v-clicks>
+
 - ✅ No data consistency anomalies
 - ⚠️ We're basically synchronous again
 - ⚠️ Reduced availability
 - ⚠️ Not supported by MongoDb, RabbitMQ, Kafka
 
+</v-clicks>
+
 <!--
 Basically an Anti-Pattern
 
 **Data consistency anomalies**:
-
-Lost updates: overwrite something from another saga
-
-Dirty reads: read half finished saga
-
-Non-repeatable reads: two steps of the saga see something different
+- Lost updates: overwrite something from another saga
+- Dirty reads: read half finished saga
+- Non-repeatable reads: two steps of the saga see something different
 
 **Reduced availability**: all participants must be available!
 -->
@@ -848,18 +842,16 @@ Saga: each service commits
 <!--
 **For when things go wrong…**
 
-**Compensatable Transactions**:
-
+**Compensatable Transactions**:  
 Transactions that can be rolled back by compensating transactions
 
-**Pivot Transactions**:
-
+**Pivot Transactions**:  
 The go/no-go point of the sage (ex: payment)
 
-**Retriable Transactions**:
-
+**Retriable Transactions**:  
 After the pivot transaction, if one of these fails, we will try them again
 -->
+
 ---
 layout: default-aside
 ---
@@ -889,10 +881,14 @@ layout: default-aside
 
 Saga: Choreography
 
+<v-clicks>
+
 - ✅ Loosely coupled & Simple
 - ⚠️ Flow is defined in multiple places
 - ⚠️ What has (already) happened?
 - ⚠️ Risk of tight coupling
+
+</v-clicks>
 
 ::image::
 
@@ -914,9 +910,12 @@ Saga: Orchestration
 
 </v-clicks>
 
-✅ Easy to test
+<v-clicks>
 
-✅ Recommended
+✅ Easy to test
+<br>✅ Recommended
+
+</v-clicks>
 
 ::image::
 
@@ -947,24 +946,18 @@ layout: default-aside
 ![](./images/business-logic.jpg)
 
 <!--
-**Transaction Script**:
-
+**Transaction Script**:  
 If it’s simple, keep it simple.
 
-**Domain Model**:
-
-Aggregates map to Services.
-
+**Domain Model**:  
+Aggregates map to Services.  
 Also here challenges: what does it mean to delete an entity? (Fuzzy Boundaries)
 
- We’ll have DDD sessions 😀
-
-**EventSourcing**:
-
-A developer might forget to send an EntityUpdated event after processing his BL  Use EventSourcing to update aggregates instead!
-
- See our CQRS session!
+**EventSourcing**:  
+A developer might forget to send an EntityUpdated event after processing his BL -> Use EventSourcing to update aggregates instead!  
+-> See our CQRS session!
 -->
+
 ---
 layout: default-aside
 ---
@@ -995,7 +988,7 @@ layout: default-aside
 
 EntityUpdated events
 
-<v-clicks>
+<v-clicks depth="2">
 
 - ID Only
   - ✅ Small messages
