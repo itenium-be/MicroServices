@@ -1374,20 +1374,23 @@ More detailed:
 -->
 ---
 layout: default-aside
+textSize: sm
 ---
 
 # Production Ready
 ## Observability
 
-<v-clicks>
+**OpenTelemetry** (OTel) -- vendor-neutral standard for traces, metrics, logs
 
-- Log Aggregation
-  - Elastic, Splunk, DataDog, ...
-- Distributed Tracing
-  - Log a request ID!
-- Application Metrics
-  - CPU, memory, disk utilization
-- Exception Tracking & Alerting
+<v-clicks depth="2">
+
+- Three pillars, one SDK
+  - **Traces**: distributed request flow (replaces Jaeger/Zipkin SDKs)
+  - **Metrics**: counters/gauges/histograms (replaces Prometheus client libs)
+  - **Logs**: structured, correlated to traces via trace ID
+- Export to any backend: Datadog, Honeycomb, Grafana, Elastic, Splunk
+- ✅ Instrument once, switch vendors without code changes
+- Exception Tracking & Alerting: Sentry, Rollbar
 
 </v-clicks>
 
@@ -1396,11 +1399,13 @@ layout: default-aside
 ![](./images/log-aggregation.jpg)
 
 <!--
-You don’t want to go checking log files on different servers
+OTel is the OpenAPI of observability -- write once, swap backends.
 
-**Application Metrics**: Heartbeats & Prometheus
+**Trace correlation**: a single `trace_id` flows through every service involved in handling a request. Logs, metrics, and traces all reference it, so you can pivot from "this log line" to "the full request that produced it" in one click.
 
-**Exception Tracking**: de-duplicate exceptions. Alerting with for example Sentry.IO
+**Logs**: OTel formalized that into W3C Trace Context -- the `traceparent` HTTP header is now a standard.
+
+**Exception Tracking**: de-duplicate exceptions. Alerting with for example Sentry.IO.
 -->
 ---
 layout: default
