@@ -421,7 +421,7 @@ layout: section
 
 # Interprocess Communication
 ---
-layout: default
+layout: default-aside
 ---
 
 # Interprocess Communication
@@ -437,6 +437,10 @@ layout: default
   - Verbosity: cost, longer parsing, performance
 
 </v-clicks>
+
+::image::
+
+![](./images/interprocess-communication.jpg)
 
 <!--
 **Interprocess**: network latency, de(serialization) and server processing + potential packet loss/retries & network congestion
@@ -456,7 +460,7 @@ layout: default
 
 New incompatible version deployed becomes a runtime exception rather than a compilation error
 
-<v-clicks>
+<v-clicks depth="2">
 
 - Need for IDL: Interface Definition Language
 - Need for a strategy to evolve APIs
@@ -470,20 +474,16 @@ New incompatible version deployed becomes a runtime exception rather than a comp
 <!--
 **IDL:** OpenApi Specification (from Swagger)
 
-**Semantic Version**: Major.Minor.Patch
-
-Often done: putting the major version in the url
-
+**Semantic Version**: Major.Minor.Patch  
+Often done: putting the major version in the url  
 Put major in header,MIME type, …
 
-**Robustness Principle**
-
+**Robustness Principle**  
 Be conservative in what you do, be liberal in what you accept
-
-Provide defaults for new request properties (that conserve the initial behavior)
-
-Ignore new response properties
+- Provide defaults for new request properties (that conserve the initial behavior)
+- Ignore new response properties
 -->
+
 ---
 layout: default
 ---
@@ -500,12 +500,11 @@ Pattern: Proxy & Adapter
 </v-clicks>
 
 <!--
-REST levels:
-
-Level 2: GET, POST, PUT and Resources
-
+REST levels:  
+Level 2: GET, POST, PUT and Resources  
 Level 3: HATEOS: GET returns urls for operations
 -->
+
 ---
 layout: default-aside
 ---
@@ -545,11 +544,12 @@ layout: default
 
 </v-clicks>
 
+<div v-click class="text-center italic mt-8 text-primary">
 Decide on a case per case basis...
+</div>
 
 <!--
-**Default Value**: if it’s not that important
-
+**Default Value**: if it’s not that important  
 **Cached Response**: if stale data is ok
 
 The client or frontend can maybe still work with partial data.
@@ -561,7 +561,7 @@ layout: default
 # Interprocess Communication
 ## Service Discovery
 
-<v-clicks>
+<v-clicks depth="2">
 
 - What is the URL
   - Monolith: a config file
@@ -571,12 +571,9 @@ layout: default
 
 <!--
 Dynamic URL:
-
-Auto-Scaling
-
-Failures  and auto-restarts
-
-(Rolling) Upgrades
+- Auto-Scaling
+- Failures -> and auto-restarts
+- (Rolling) Upgrades
 -->
 ---
 layout: default
@@ -585,17 +582,29 @@ layout: default
 # Interprocess Communication
 ## Service Discovery
 
-The solution, as so many times with MicroServices, is to... add another service
+<div v-click class="text-center italic mt-8 text-primary">
+The solution, as so many times with MicroServices,
+<br>is to... add another service
+</div>
 
-**"Service Registry"**
+<div v-click class="text-center text-xxl italic mt-8 accent">
+"Service Registry"
+</div>
+
+<v-click>
+
+![](./images/service-registry.jpg)
+
+</v-click>
+
 ---
-layout: default-aside
+layout: default
 ---
 
 # Interprocess Communication
 ## Service Registry
 
-<v-clicks>
+<v-clicks depth="2">
 
 - Self-Registration
   - A service registers itself + health check & heartbeat
@@ -606,9 +615,6 @@ layout: default-aside
 
 </v-clicks>
 
-::image::
-
-![](./images/service-registry.jpg)
 
 <!--
 Example: Netflix Eureka + Ribbon Http client, Pivotal Spring Cloud
