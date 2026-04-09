@@ -157,28 +157,6 @@ disabled: true
 
 ---
 layout: statement
-disabled: true
----
-
-Organizations which design systems … are constrained to produce designs which are copies of the communication structures of these organizations
-
-::author::
-
-**Melvin Conway**
-
-Reverse Conway Maneuver
-
-::image::
-
-![](./images/no-silver-bullet-wooden.jpg)
-
-<!--
-https://en.wikipedia.org/wiki/Conway%27s_law
-
-https://www.thoughtworks.com/insights/blog/customer-experience/inverse-conway-maneuver-product-development-teams
--->
----
-layout: statement
 ---
 
 If your application is very successful, the monolith may turn out to be not such a great idea after all
@@ -255,9 +233,9 @@ textSize: xl
 - Each service is small and easily maintained
 - Can be independently deployed
 - Can be independently scaled
-- Teams can work autonomously
 - Better fault isolation
 - Easy experimentation and adoption of new technologies
+- Teams can work autonomously
 
 </v-clicks>
 
@@ -266,7 +244,72 @@ textSize: xl
 ![](./images/no-silver-bullet.jpg)
 
 <!--
-Each service can be X & Z scaled
+Each service can be X & Z scaled.
+
+**Teams can work autonomously**: is what actually matters, and what nobody plans for.
+-->
+
+---
+layout: statement
+---
+
+Organizations which design systems … are constrained to produce designs which are copies of the communication structures of these organizations
+
+::author::
+
+**Melvin Conway**
+
+<!--
+Conway's Law. 1968.
+
+What it means in plain English: if you have four teams writing a compiler, you will get a four-pass compiler. The shape of the software ends up matching the shape of the org chart, every single time, because that's where the communication boundaries are.
+
+For microservices this cuts both ways. If your team structure is "frontend team, backend team, DBA team", you will get a three-tier monolith no matter how hard you try to draw service boundaries on a whiteboard. The architecture will revert to match the org chart within six months.
+
+The flip side is the useful one: if you WANT a particular service architecture, change the teams first. That's the **Inverse Conway Maneuver** — restructure your teams to look like the system you want, and the system will follow. ThoughtWorks coined the term; Spotify, ING and the UK Government Digital Service all use it explicitly.
+-->
+
+---
+layout: default-aside
+textSize: sm
+---
+
+# Team Topologies
+
+## If services mirror teams, then **organize the teams first**
+
+<v-clicks depth="2">
+
+- **Stream-aligned team** -- owns a slice of the business end-to-end
+  - One team, one or more services, one value stream
+- **Platform team** -- builds the internal platform stream-aligned teams use
+  - Kubernetes, CI/CD, observability, the chassis
+- **Enabling team** -- short-lived, helps stream teams adopt new skills
+- **Complicated subsystem team** -- owns the parts that need deep specialization
+
+</v-clicks>
+
+<div v-click class="text-center text-primary mt-10">
+
+The **Inverse Conway Maneuver**:
+<br>change team boundaries → service boundaries follow
+
+</div>
+
+<!--
+Team Topologies is a 2019 book by Matthew Skelton and Manuel Pais. It is the modern follow-on to Conway's Law and the most-cited team-structure framework in microservices literature today.
+
+The four team types are not roles, they are organizational primitives. The default team you want is stream-aligned: it owns a vertical slice of the business — say "checkout" or "search" — end to end, from the database to the UI. One team, one mission, deploy when they want.
+
+Platform teams exist to keep the stream-aligned teams fast. They run Kubernetes, the CI pipelines, the observability stack, the service chassis we'll see later. The rule of thumb: if every stream-aligned team is reinventing the same thing, that thing belongs to the platform team.
+
+Enabling teams are short-lived consultants from inside your own org — they parachute into a stream-aligned team for a few sprints to teach them, say, how to write good integration tests, then leave. Complicated subsystem teams are for the parts where you genuinely need a PhD — a recommendation engine, a tax calculator, video transcoding.
+
+The deeper insight from the book is cognitive load. A team can only own as many services as it can keep in its head. That's the real answer to "how micro is a microservice?" — the question on the very next slide. Micro means "small enough that one team isn't drowning."
+
+Inverse Conway Maneuver: don't draw the architecture and hope the teams follow. Restructure the teams first, into the shape you want the system to have, and the system will follow within a release cycle or two.
+
+https://www.thoughtworks.com/insights/blog/customer-experience/inverse-conway-maneuver-product-development-teams
 -->
 
 ---
@@ -516,13 +559,13 @@ Versioning is a strategy. **Verification** is what catches the bugs.
 </v-clicks>
 
 <!--
-**Why this is the missing piece**: semver tells you a version is breaking. It does not tell you WHICH consumers break. Schema registry + contract tests close that loop.
+The Robustness Principle is good advice but it's hope-driven.
 
-**Schema Registry compatibility modes**: BACKWARD (new schema can read old data), FORWARD (old schema can read new data), FULL (both). Pick BACKWARD for events that have long-lived consumers.
+Semver tells you that a version is breaking. It does not tell you WHICH consumers break. Schema registry and contract tests close that loop.
 
-**Pact in practice**: consumer team writes a test that says "when I call /orders/123, I expect a response with at least these fields". Pact runs this test in mock mode in the consumer's CI, and in real mode against the producer's CI. Both sides know immediately when the contract drifts.
+Schema Registry compatibility modes: BACKWARD (a new schema can still read old data), FORWARD (old schema can read new data), FULL (both). Pick BACKWARD for events with long-lived consumers — that's the common case.
 
-**Connects to the previous slide**: the Robustness Principle is good advice but it's hope-driven. Contract tests are evidence-driven.
+**Pact in practice**: the consumer team writes a test that says "when I call `/orders/123`, I expect a response with at least these fields". Pact runs that test in mock mode in the consumer's CI, and in real mode against the producer's CI. Both sides know immediately when the contract drifts.
 -->
 
 ---
@@ -592,9 +635,11 @@ A failed call might have succeeded -- the response just got lost
 </v-clicks>
 
 <!--
-**Why this matters**: the network can fail AFTER the server processed the request but BEFORE the response reaches the client. The client doesn't know if the charge went through. Without idempotency, retrying double-charges the customer.
+The network can fail AFTER the server processed the request but BEFORE the response reaches the client. The client doesn't know if the charge went through. Retry blindly and you double-charge the customer.
 
-**Stripe popularized this**: now used by Shopify, Square, GitHub, AWS, PayPal. The key is stored server-side for ~24h; same key + same payload = cached response.
+Stripe popularized the `Idempotency-Key` header. Shopify, Square, GitHub, AWS, PayPal all do the same thing now. The server keeps `key → response` for around 24 hours; same key + same payload returns the cached response instead of re-executing.
+
+**Important**: an idempotency key is per *logical operation*, not per HTTP retry. Generate it once on the client side, send it on every retry of the same intent.
 -->
 
 ---
@@ -801,13 +846,15 @@ Brokers deliver AT LEAST ONCE 😱 -- you can't atomically write to a DB **and**
 </v-clicks>
 
 <!--
-**The dual-write trap**: naive code does `db.save(); broker.publish()`. If the process crashes between these two lines, you have a DB row but no event -- silently inconsistent. The opposite is just as bad: event published, transaction rolled back.
+This is the pattern that makes event-driven microservices actually work. Get it wrong and you'll spend years debugging "missing events".
 
-**Why "consumers must still be idempotent"**: outbox guarantees the message gets sent at least once, but the broker can still deliver it multiple times. Same dedup story as the HTTP `Idempotency-Key` slide earlier -- different transport, same fix.
+**The dual-write trap**: naive code does `db.save(); broker.publish()`. If the process crashes between those two lines you have a DB row but no event — silently inconsistent. The opposite is just as bad: event published, then the transaction rolls back, and now consumers are reacting to something that never happened.
 
-**Database Transaction Log Tailing**: Debezium (Kafka), AWS DynamoDB Streams, MongoDB Change Streams, SQL Server CDC, LinkedIn Databus, Eventuate Tram.
+**The Outbox fix**: write the message to a table in the same DB transaction as the business data. A separate publisher process reads the outbox and ships it to the broker. Now the message exists if and only if the business change exists.
 
-**Why this slide exists**: this is THE pattern that makes event-driven microservices work. Get it wrong and you'll spend years debugging "missing events".
+Two ways to drain the outbox: poll the table (simple, latency in seconds), or tail the database transaction log (Debezium, latency in milliseconds). Debezium reads Postgres WAL, MySQL binlog, MongoDB change streams, SQL Server CDC.
+
+Outbox guarantees at-least-once. The broker can still deliver the same message twice — so consumers must still be idempotent. Same dedup story as the HTTP `Idempotency-Key` slide earlier, just over a different transport.
 -->
 
 ---
@@ -1081,12 +1128,13 @@ layout: default-aside
 ![](./images/domain-events.jpg)
 
 <!--
-**Martin Fowler's terminology** -- both are valid; pick per event based on consumer needs.
+From Martin Fowler.
 
-Notification when one consumer needs full data → it fetches once.
-State transfer when many consumers need a slice → broadcast it so they don't all hammer the producer.
+Most systems mix both. Lightweight notifications for high-frequency events; enriched events for the handful of "important" events everyone cares about — order placed, payment captured, user signed up.
 
-In practice most systems mix both: lightweight notifications for high-frequency events, enriched events for the handful that everyone cares about.
+**Notification (ID only)**: the event is just "something happened, here's the ID". If a consumer cares, it calls back to the producer to fetch the details. Cheap to publish, but it creates a synchronous dependency: the producer has to be up when consumers want details.
+
+**State transfer (enriched)**: the event carries the full payload. Consumers can act on it without calling back, even if the producer is down. Costs more bytes and your schema is now part of every consumer's contract — change it and you ripple breakage.
 -->
 ---
 layout: break
@@ -1399,13 +1447,13 @@ textSize: sm
 ![](./images/log-aggregation.jpg)
 
 <!--
-OTel is the OpenAPI of observability -- write once, swap backends.
+OTel is the OpenAPI of observability: write once, swap backends.
 
-**Trace correlation**: a single `trace_id` flows through every service involved in handling a request. Logs, metrics, and traces all reference it, so you can pivot from "this log line" to "the full request that produced it" in one click.
+A single `trace_id` flows through every service involved in handling a request. Logs, metrics and traces all reference it, so you can pivot from "this log line" to "the full request that produced it" in one click. The trace_id rides on the `traceparent` HTTP header — that's a W3C standard now, so cross-vendor traces just work.
 
-**Logs**: OTel formalized that into W3C Trace Context -- the `traceparent` HTTP header is now a standard.
+You don't want to go checking log files on different servers. Aggregate everything into Elastic, Splunk, Datadog, Loki — pick one.
 
-**Exception Tracking**: de-duplicate exceptions. Alerting with for example Sentry.IO.
+Exception tracking is the layer above logging: de-duplicate the same exception across thousands of requests, alert once. Sentry is the obvious choice; Rollbar and Bugsnag also fine.
 -->
 ---
 layout: default
