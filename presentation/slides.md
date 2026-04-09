@@ -171,6 +171,7 @@ Reverse Conway Maneuver
 
 <!--
 https://en.wikipedia.org/wiki/Conway%27s_law
+
 https://www.thoughtworks.com/insights/blog/customer-experience/inverse-conway-maneuver-product-development-teams
 -->
 ---
@@ -287,7 +288,7 @@ textSize: xl
 ![](./images/how-micro.jpg)
 
 <!--
-Lead time: from request to deployment
+**Lead time**: from request to deployment
 -->
 ---
 layout: default-aside
@@ -314,7 +315,8 @@ There are significant drawbacks & challenges
 ![](./images/no-silver-bullet-wooden.jpg)
 
 <!--
-Complexity:
+**Complexity**:
+
 What to do when the other system is down, unavailable or crashes?
 -->
 ---
@@ -371,7 +373,7 @@ layout: default-aside
 ![](./images/loosely-coupled.jpg)
 
 <!--
-Internals are hidden: Information Hiding / Encapsulation at a higher level
+**Internals are hidden**: Information Hiding / Encapsulation at a higher level
 -->
 ---
 layout: default-aside
@@ -397,13 +399,20 @@ layout: default-aside
 ![](./images/obstacles-boulder.jpg)
 
 <!--
-Chatty Services:
+**Chatty Services**:
+
 To get Order + Consumer => 2 calls
+
 OR: /v1/order/5?expand=consumer => 1 call (less chatty)  or use GraphQL
-Synchronous Interprocess Communication:
+
+**Synchronous Interprocess Communication**:
+
 Reduced availability: if one service is down, you are down
+
 Synchronous API call?  Because you are waiting for it!
+
 ACID: Atomic, Consistent, Isolated, Durable
+
 MicroServices only has ACD
 -->
 ---
@@ -430,11 +439,15 @@ layout: default
 </v-clicks>
 
 <!--
-Interprocess: network latency, de(serialization) and server processing + potential packet loss/retries & network congestion
+**Interprocess**: network latency, de(serialization) and server processing + potential packet loss/retries & network congestion
+
 gRPC: Google Remote Procedure Call
+
 AMQP: Advanced Message Queuing Protocol
+
 STOMP: Simple (or Streaming) Text Oriented Messaging Protocol
-One-to-many: with publish/subscribe
+
+**One-to-many**: with publish/subscribe
 -->
 ---
 layout: default
@@ -457,13 +470,20 @@ New incompatible version deployed becomes a runtime exception rather than a comp
 </v-clicks>
 
 <!--
-IDL: OpenApi Specification (from Swagger)
-Semantic Version: Major.Minor.Patch
+**IDL:** OpenApi Specification (from Swagger)
+
+**Semantic Version**: Major.Minor.Patch
+
 Often done: putting the major version in the url
+
 Put major in header,MIME type, …
-Robustness Principle
+
+**Robustness Principle**
+
 Be conservative in what you do, be liberal in what you accept
+
 Provide defaults for new request properties (that conserve the initial behavior)
+
 Ignore new response properties
 -->
 ---
@@ -483,7 +503,9 @@ Pattern: Proxy & Adapter
 
 <!--
 REST levels:
+
 Level 2: GET, POST, PUT and Resources
+
 Level 3: HATEOS: GET returns urls for operations
 -->
 ---
@@ -508,7 +530,7 @@ A proxy that rejects invocations for x time after y consecutive failures
 ![](./images/circuit-breaker.jpg)
 
 <!--
-Circuit Breakers: Netflix Hystrix, Polly
+**Circuit Breakers**: Netflix Hystrix, Polly
 -->
 ---
 layout: default
@@ -528,8 +550,10 @@ layout: default
 Decide on a case per case basis...
 
 <!--
-Default Value: if it’s not that important
-Cached Response: if stale data is ok
+**Default Value**: if it’s not that important
+
+**Cached Response**: if stale data is ok
+
 The client or frontend can maybe still work with partial data.
 -->
 ---
@@ -549,8 +573,11 @@ layout: default
 
 <!--
 Dynamic URL:
+
 Auto-Scaling
+
 Failures  and auto-restarts
+
 (Rolling) Upgrades
 -->
 ---
@@ -587,6 +614,7 @@ layout: default-aside
 
 <!--
 Example: Netflix Eureka + Ribbon Http client, Pivotal Spring Cloud
+
 Platform provided: Docker & Kubernetes  The deployment system handles it
 -->
 ---
@@ -625,6 +653,7 @@ layout: default-aside
 
 <!--
 ActiveMQ, RabbitMQ, Kafka, AWS Kinesis, AWS SQS
+
 Events or Broadcasts
 -->
 ---
@@ -647,9 +676,11 @@ Brokerless Messaging:
 ![](./images/brokerless.jpg)
 
 <!--
-Brokerless: (ex: ZeroMQ)
+**Brokerless**: (ex: ZeroMQ)
+
 Send messages directly from server to receiver
-Reduced availability: both sender and receiver need to be available
+
+**Reduced availability**: both sender and receiver need to be available
 -->
 ---
 layout: default
@@ -671,8 +702,10 @@ layout: default
 </v-clicks>
 
 <!--
-Competing capabilities: pick a broker that supports what you need
+**Competing capabilities**: pick a broker that supports what you need
+
 Ordered delivery typically means increased latency
+
 Guaranteed delivery: Typically a broker promises to deliver a message at least once (receive, handle, crash before acknowledging handled)
 -->
 ---
@@ -696,7 +729,8 @@ Deliver AT LEAST ONCE? 😱😱😱
 </v-clicks>
 
 <!--
-Database Transaction Log Tailing:
+**Database Transaction Log Tailing:**
+
 Debezium (Kafka), LinkedIn Databus, DynamoDB Streams, Eventuate Tram
 -->
 ---
@@ -717,7 +751,8 @@ Try to eliminate synchronous interactions
 </v-clicks>
 
 <!--
-Replicate data:
+**Replicate data**:
+
 By subscribing to changed events. CQRS covered later on.
 -->
 ---
@@ -741,11 +776,16 @@ Saga: a message driven sequence of local transactions in order to maintain data 
 ![](./images/saga-warrior.jpg)
 
 <!--
-Countermeasures:
+**Countermeasures**:
+
 Implement countermeasures to prevent or reduce impact of concurrency anomalies
-Choreography:
+
+**Choreography**:
+
 Participants of the saga exchange messages without central point of control
-Orchestration:
+
+**Orchestration**:
+
 Centralized controller tells participants what to do
 -->
 ---
@@ -768,11 +808,16 @@ All participants commit or rollback
 
 <!--
 Basically an Anti-Pattern
-Data consistency anomalies:
+
+**Data consistency anomalies**:
+
 Lost updates: overwrite something from another saga
+
 Dirty reads: read half finished saga
+
 Non-repeatable reads: two steps of the saga see something different
-Reduced availability: all participants must be available!
+
+**Reduced availability**: all participants must be available!
 -->
 ---
 layout: default-aside
@@ -797,12 +842,18 @@ Saga: each service commits
 ![](./images/saga-compensating.jpg)
 
 <!--
-For when things go wrong…
-Compensatable Transactions:
+**For when things go wrong…**
+
+**Compensatable Transactions**:
+
 Transactions that can be rolled back by compensating transactions
-Pivot Transactions:
+
+**Pivot Transactions**:
+
 The go/no-go point of the sage (ex: payment)
-Retriable Transactions:
+
+**Retriable Transactions**:
+
 After the pivot transaction, if one of these fails, we will try them again
 -->
 ---
@@ -892,14 +943,22 @@ layout: default-aside
 ![](./images/business-logic.jpg)
 
 <!--
-Transaction Script:
+**Transaction Script**:
+
 If it’s simple, keep it simple.
-Domain Model:
+
+**Domain Model**:
+
 Aggregates map to Services.
+
 Also here challenges: what does it mean to delete an entity? (Fuzzy Boundaries)
+
  We’ll have DDD sessions 😀
-EventSourcing:
+
+**EventSourcing**:
+
 A developer might forget to send an EntityUpdated event after processing his BL  Use EventSourcing to update aggregates instead!
+
  See our CQRS session!
 -->
 ---
@@ -970,7 +1029,7 @@ layout: quote-image
 ![](./images/comic-microservice-size.jpg)
 
 <!--
-Lead time: from request to deployment
+**Lead time**: from request to deployment
 -->
 ---
 layout: section
@@ -1022,7 +1081,8 @@ layout: default-aside
 ![](./images/cqrs-mirror.jpg)
 
 <!--
-Example:
+**Example**:
+
 Restaurant app & database does nor support geospatial datatypes (findAvailableRestaurants)
 -->
 ---
@@ -1058,8 +1118,9 @@ Solution: **API Gateway**
 ![](./images/external-apis.jpg)
 
 <!--
-Internal Admin App: High bandwidth LAN
-External Clients: Lower performing internet
+**Internal Admin App**: High bandwidth LAN
+
+**External Clients**: Lower performing internet
 -->
 ---
 layout: default-aside
@@ -1084,11 +1145,15 @@ layout: default-aside
 ![](./images/api-gateway.jpg)
 
 <!--
-Edge functions:
+**Edge functions**:
+
 Authentication, Authorization, Rate limiting, Caching, Metrics collection, Request logging
-Protocol translation: Internal service might use gRPC
-Depends on client: return less data for a mobile client
-Backends for frontends: Netflix Falcor
+
+**Protocol translation**: Internal service might use gRPC
+
+**Depends on client**: return less data for a mobile client
+
+**Backends for frontends**: Netflix Falcor
 -->
 ---
 layout: default-aside
@@ -1107,7 +1172,7 @@ layout: default-aside
 ![](./images/api-gateway.jpg)
 
 <!--
-Off the shelf: Netflix Zuul, Traefik, Spring Cloud Gateway, AWS API Gateway, AWS Application Load Balancer
+**Off the shelf**: Netflix Zuul, Traefik, Spring Cloud Gateway, AWS API Gateway, AWS Application Load Balancer
 -->
 ---
 layout: section
@@ -1182,9 +1247,12 @@ layout: default-aside
 ![](./images/configurability.jpg)
 
 <!--
-Push: using environment variables or files. Files: there are files everywhere.
-Pull: using git, a DB, Spring Cloud Config
-Sensitive data: Hashicorp Vault, AWS Parameter Store
+**Push:** using environment variables or files. Files: there are files everywhere.
+
+**Pull**: using git, a DB, Spring Cloud Config
+
+**Sensitive data**: Hashicorp Vault, AWS Parameter Store
+
 Pull is centralized, dynamic reconfiguration, transparent decryption, yet another service
 -->
 ---
@@ -1210,9 +1278,13 @@ layout: default-aside
 
 <!--
 Ex: HealthChecks.NET, Spring Boot Actuator
+
 Checked by: Docker, Kubernetes, Netflix Eureka
+
 More detailed:
+
 Do a db query
+
 Check external services are available
 -->
 ---
@@ -1240,8 +1312,10 @@ layout: default-aside
 
 <!--
 You don’t want to go checking log files on different servers
-Application Metrics: Heartbeats & Prometheus
-Exception Tracking: de-duplicate exceptions. Alerting with for example Sentry.IO
+
+**Application Metrics**: Heartbeats & Prometheus
+
+**Exception Tracking**: de-duplicate exceptions. Alerting with for example Sentry.IO
 -->
 ---
 layout: default
@@ -1291,8 +1365,9 @@ layout: default-aside
 ![](./images/chassis.jpg)
 
 <!--
-Chassis: GoKit, Micro
-Mesh: Istio, Conduit, Linkerd
+**Chassis**: GoKit, Micro
+
+**Mesh**: Istio, Conduit, Linkerd
 -->
 ---
 layout: section
@@ -1376,6 +1451,7 @@ Build image, push to registry, start container
 
 <!--
 Ex: Docker, Podman
+
 Registry: Docker Cloud Registry, AWS EC2 Container Registry
 -->
 ---
@@ -1402,8 +1478,10 @@ Scheduling: Checks service requirements to select a machine
 (Anti)-Affinity: services to (not) run on the same machine
 
 <!--
-Service Mesh: Separate deployment from release
+**Service Mesh**: Separate deployment from release
+
 Deploy, test and only then release
+
 Maybe next Architecture/Cloud sessions on Kubernetes…
 -->
 ---
@@ -1421,7 +1499,8 @@ layout: default
 
 <!--
 AWS Lambda, Azure Functions
-Long running processes: don’t put a message handler on serverless
+
+**Long running processes**: don’t put a message handler on serverless
 -->
 ---
 layout: section
@@ -1490,11 +1569,16 @@ Strangle the monolith
 ![](./images/strangle-monolith.jpg)
 
 <!--
-Rewrite:
+**Rewrite**:
+
 Moving target
+
 Or no more delivery for a long time
-High value areas:
+
+**High value areas**:
+
 Can demo benefit to the business quickly
+
 Extract a service on an area that is actively being developer
 -->
 ---
@@ -1521,10 +1605,14 @@ layout: default-aside
 ![](./images/strangle-monolith.jpg)
 
 <!--
-Move data: to the new services
-Replicate: and make the monolith data read-only
+**Move data**: to the new services
+
+**Replicate**: and make the monolith data read-only
+
 Or: Write new features as services
+
 Or: Focus o
+
 Timebox service architectures.
 -->
 ---
@@ -1549,8 +1637,9 @@ Minimize changes to the monolith
 ![](./images/strangle-monolith.jpg)
 
 <!--
-API Gateway: Route to monolith or a MicroService
-Glue Code: Messaging or Invoke REST APIs from the Monolith
+**API Gateway**: Route to monolith or a MicroService
+
+**Glue Code**: Messaging or Invoke REST APIs from the Monolith
 -->
 ---
 layout: end
