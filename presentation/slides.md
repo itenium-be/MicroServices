@@ -29,6 +29,7 @@ items:
   - External APIs
   - Production Ready
   - Deployment
+  - Refactoring
 ---
 ---
 layout: default-aside
