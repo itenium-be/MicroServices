@@ -104,11 +104,10 @@ layout: default-aside
 
 ---
 layout: statement
+textSize: md
 ---
 
-You probably shouldn't do this
-
-::author::
+# You probably shouldn't do this
 
 Most teams would be better off with a well-built monolith.
 
