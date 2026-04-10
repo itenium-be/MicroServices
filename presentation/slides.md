@@ -224,6 +224,12 @@ Maintainability, extensibility and testability suffer
 
 ![](./images/monolith-hell-fire.jpg)
 
+<!--
+A 2-day feature becomes a 2-week feature.  
+Adding a new dev takes 6 months to ramp up.  
+The test suite takes 45 minutes — so nobody runs it locally.
+-->
+
 ---
 layout: section
 ---
