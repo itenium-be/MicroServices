@@ -1214,11 +1214,13 @@ Most systems mix both. Lightweight notifications for high-frequency events; enri
 
 **State transfer (enriched)**: the event carries the full payload. Consumers can act on it without calling back, even if the producer is down. Costs more bytes and your schema is now part of every consumer's contract — change it and you ripple breakage.
 -->
+
 ---
 layout: break
+orientation: vertical
 ---
 
-# ☕ Break
+# How Micro is a MicroService?
 
 ::timer::
 
@@ -1226,21 +1228,9 @@ layout: break
 
 ::image::
 
-![](./images/cover-art.jpg)
-
----
-layout: quote-image
----
-
-# How Micro is a MicroService?
-
-::image::
-
 ![](./images/comic-microservice-size.jpg)
 
-<!--
-**Lead time**: from request to deployment
--->
+
 ---
 layout: section
 ---
