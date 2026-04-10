@@ -491,6 +491,7 @@ layout: default-aside
   - Distributed Transactions vs Saga
 - Consistent view of data
   - Letting go of the monolithic ACID
+  - MicroServices only has **ACD**
 
 </v-clicks>
 
@@ -508,7 +509,6 @@ OR: /v1/order/5?expand=consumer => 1 call (less chatty) -> or use GraphQL
 - Synchronous API call? -> Because you are waiting for it!
 
 **ACID**: Atomic, Consistent, Isolated, Durable  
-MicroServices only has ACD
 -->
 ---
 layout: section
