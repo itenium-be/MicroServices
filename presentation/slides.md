@@ -544,7 +544,7 @@ layout: default-aside
 ![](./images/interprocess-communication.jpg)
 
 <!--
-**Interprocess**: network latency, de(serialization) and server processing + potential packet loss/retries & network congestion
+**Interprocess**: network latency, (de)serialization and server processing + potential packet loss/retries & network congestion
 
 gRPC: Google Remote Procedure Call  
 AMQP: Advanced Message Queuing Protocol  
@@ -1435,7 +1435,7 @@ layout: default-aside
 ![](./images/security-key.jpg)
 
 <!--
-Spring Security, Apache Shino, NodeJS Passport
+Spring Security, Apache Shiro, NodeJS Passport
 -->
 ---
 layout: default-aside
@@ -1687,7 +1687,7 @@ Build image, push to registry, start container
 <!--
 Ex: Docker, Podman
 
-Registry: Docker Cloud Registry, AWS EC2 Container Registry
+Registry: Docker Cloud Registry, AWS ECR (Elastic Container Registry)
 -->
 ---
 layout: default
