@@ -627,12 +627,18 @@ Pattern: Proxy & Adapter
 
 <v-clicks>
 
-- Hide that it is a Remote Procedure Invocation
-- Hide the address, port and protocol used
+- ✅ Hide the address, port, protocol, serialization format
+- ✅ Centralized place for retries, circuit breakers, tracing
+- ⚠️ Don't hide that the call is **remote**
+  - Local call: ~nanoseconds, deterministic, no partial failure
+  - Remote call: ~milliseconds, probabilistic, can hang or half-succeed
 
 </v-clicks>
 
 <!--
+- Waldo et al. "A Note on Distributed Computing" (1994) — the canonical takedown of transparent RPC
+- The four fallacies that matter: latency, reliability, bandwidth, partial failure
+
 REST levels:  
 Level 2: GET, POST, PUT and Resources  
 Level 3: HATEOS: GET returns urls for operations
