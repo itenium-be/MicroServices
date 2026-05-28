@@ -8,6 +8,7 @@ track: Architecture
 type: Theoretical
 first: 2024-10-17
 lastUpdate: 2026-04-09
+aspectRatio: 16/10
 ---
 
 # Micro
